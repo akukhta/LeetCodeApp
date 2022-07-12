@@ -1,0 +1,4 @@
+C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Debug\LeetCodeApp.vcxproj.CopyComplete
+C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Debug\LeetCodeApp.exe
+C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Debug\libcurl-d.dll
+C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Debug\zlibd1.dll

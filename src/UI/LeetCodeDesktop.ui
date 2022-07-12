@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LeetCodeDesktopClass</class>
+ <widget class="QMainWindow" name="LeetCodeDesktopClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>693</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LeetCodeDesktop</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QScrollBar:vertical {
+	border: none;
+    background: rgb(45, 45, 68);
+    width: 7px;
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+ }
+
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN TOP - SCROLLBAR */
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::sub-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN BOTTOM - SCROLLBAR */
+QScrollBar::add-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::add-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::add-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+QScrollBar:horizontal {
+   	border: none;
+	height: 7px;
+    background: rgb(45, 45, 68);
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 7px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+	background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+	background: none;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(40, 40, 40);
+</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_4"/>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QScrollArea {
+border: none;
+}
+
+QScrollBar:vertical {
+	border: none;
+    background: rgb(45, 45, 68);
+    width: 7px;
+    margin: 0px 0 0px 0;
+	border-radius: 0px;
+ }
+
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN TOP - SCROLLBAR */
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::sub-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN BOTTOM - SCROLLBAR */
+QScrollBar::add-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::add-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::add-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+QScrollBar:horizontal {
+   	border: none;
+	height: 7px;
+    background: rgb(45, 45, 68);
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+
+QScrollBar::add-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 7px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+	background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+	background: none;
+}
+</string>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>673</width>
+           <height>372</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QScrollBar:vertical {
+	border: none;
+    background: rgb(45, 45, 68);
+    width: 7px;
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+ }
+
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {	
+	background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::handle:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN TOP - SCROLLBAR */
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::sub-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* BTN BOTTOM - SCROLLBAR */
+QScrollBar::add-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::add-line:vertical:hover {	
+	background-color: rgb(255, 0, 127);
+}
+QScrollBar::add-line:vertical:pressed {	
+	background-color: rgb(185, 0, 92);
+}
+
+/* RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+QScrollBar:horizontal {
+   	border: none;
+	height: 7px;
+    background: rgb(45, 45, 68);
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background-color: rgb(80, 80, 122);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 7px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+	background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+	background: none;
+}
+</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_1"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="LeetCodeDesktop.qrc"/>
+ </resources>
+ <connections/>
+</ui>
