@@ -1,0 +1,29 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [main]
+    
+env:
+  APP_PATH: "leetcodeDesktop"
+
+jobs:
+  build-linux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      
+    - name: getCURL
+      run: |
+        sudo apt update && sudo apt upgrade && sudo apt install curl && sudo apt-get install libcurl4-openssl-dev
+
+    - name: Build app for release
+      run: |
+        cmake .
+        make
+    
