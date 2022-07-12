@@ -8,7 +8,8 @@ env:
   APP_PATH: "leetcodeDesktop"
 
 jobs:
-  build-linux:
+  
+  build-windows:
 
     runs-on: windows-latest
 
@@ -22,8 +23,7 @@ jobs:
       uses: lukka/run-vcpkg@v10
           
     - name: vcpkg integration
-      uses: |
-        vcpkg integrate install
+      run: vcpkg integrate install
         
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
