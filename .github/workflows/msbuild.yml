@@ -19,10 +19,8 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       
-    - name: install vcpkg
-      uses: lukka/run-vcpkg@v10
-          
-    - name: vcpkg integration
+    - name: Restore vcpkg packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
       run: vcpkg integrate install
         
     - name: Build
