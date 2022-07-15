@@ -6,8 +6,27 @@ template <class RetFuture>
 class Task
 {
 public:
-	Task() = default;
 	
+	Task(std::future<RetFuture> && t)
+	{
+		currentTask = std::move(t);
+	}
+
+	/*Task(std::future<RetFuture> & t)
+	{
+		currentTask = std::move(t);
+	}*/
+
+	Task(std::tuple<std::future<RetFuture>, FILE*, std::string> const &&t)
+	{
+		currentTask = std::get<0>(t);
+		setPostCallBack([&t]() 
+			{
+				fclose(std::get<1>(t));
+				std::filesystem::remove(std::get<2>(t));
+			});
+	}
+
 	void setTask(std::future<RetFuture> task)
 	{
 		currentTask = std::future<RetFuture>(std::move(task));

@@ -17,8 +17,8 @@ std::string RequestManager::generateFileName() const
     return fileName;
 }
 
-void RequestManager::executeRequest(std::string const& URL, std::string const &protocol, std::string const &type,
-    std::string const& body, curl_slist* headers, FILE* out)
+std::string RequestManager::executeRequest(std::string const& URL, std::string const &protocol, std::string const &type,
+    std::string const& body, curl_slist* headers)
 {
     auto fileName = generateFileName(); 
 
@@ -40,15 +40,13 @@ void RequestManager::executeRequest(std::string const& URL, std::string const &p
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
     }
 
-    if (out != nullptr)
-    {
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, out);
-    }
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, fd);
 
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
-
+    fclose(fd);
+    return fileName;
 }
 
 std::shared_ptr<RequestManager> RequestManager::getInstance()
@@ -57,10 +55,8 @@ std::shared_ptr<RequestManager> RequestManager::getInstance()
     return obj;
 }
 
-std::tuple<std::future<void>, FILE*, std::string> RequestManager::getAllProblems()
+std::future<std::string> RequestManager::getAllProblems()
 {
-    std::string fileName = generateFileName();
-    FILE* fd = fopen(fileName.c_str(), "w");
     std::string protocol = "https";
     std::string url = "https://leetcode.com/graphql";
     std::string type = "POST";
@@ -69,14 +65,12 @@ std::tuple<std::future<void>, FILE*, std::string> RequestManager::getAllProblems
     headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
     std::string body = "{\"query\":\"query allQuestionsRaw {\\r\\n  allQuestions: allQuestionsRaw {\\r\\n    title\\r\\n    titleSlug\\r\\n    translatedTitle\\r\\n    questionId\\r\\n    questionFrontendId\\r\\n    status\\r\\n    difficulty\\r\\n    isPaidOnly\\r\\n    categoryTitle\\r\\n    __typename\\r\\n  }\\r\\n}\\r\\n\",\"variables\":{}}";
     
-    return std::make_tuple(std::async(std::launch::async,
-        &RequestManager::executeRequest, this, url, protocol, type, body, headers, fd), fd, fileName);
+    return std::async(std::launch::async,
+        &RequestManager::executeRequest, this, url, protocol, type, body, headers);
 }
 
-std::tuple<std::future<void>, FILE*, std::string> RequestManager::getQuestionsCount() noexcept(false)
+std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
 {
-    std::string fileName = generateFileName();
-    FILE* fd = fopen(fileName.c_str(), "w");
     std::string protocol = "https";
     std::string url = "https://leetcode.com/graphql";
     std::string type = "POST";
@@ -85,8 +79,8 @@ std::tuple<std::future<void>, FILE*, std::string> RequestManager::getQuestionsCo
     headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
     std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit: 50\\r\\n    skip: 1050\\r\\n    filters: {}\\r\\n  ) {\\r\\n    total: totalNum\\r\\n    questions: data {\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId: questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly: isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n      }\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n    }\\r\\n  }\\r\\n}\\r\\n    \",\"variables\":{}}";
     
-    return std::make_tuple(std::async(std::launch::async,
-        &RequestManager::executeRequest, this, url, protocol, type, body, headers, fd), fd, fileName);
+    return std::async(std::launch::async,
+        &RequestManager::executeRequest, this, url, protocol, type, body, headers);
 }
 
 void RequestManager::getCSRFToken()

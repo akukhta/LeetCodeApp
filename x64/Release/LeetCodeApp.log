@@ -1,0 +1,12 @@
+﻿  Reading Qt configuration (C:/Qt/5.9.9/msvc2017_64/bin/qmake)
+  RequestManager.cpp
+  main.cpp
+  JsonManager.cpp
+  LeetCodeDesktop.cpp
+  ProblemWidget.cpp
+  WindowTool.cpp
+  qrc_LeetCodeDesktop.cpp
+  moc_LeetCodeDesktop.cpp
+  moc_ProblemWidget.cpp
+  moc_WindowTool.cpp
+  LeetCodeApp.vcxproj -> C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Release\LeetCodeApp.exe

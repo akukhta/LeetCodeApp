@@ -15,8 +15,8 @@ class RequestManager : public std::enable_shared_from_this<RequestManager>
 private:
 	RequestManager();
 	std::string generateFileName() const;
-	void executeRequest(std::string const& URL, std::string const& protocol = "https", std::string const& type = "GET",
-		std::string const &body = "", curl_slist * headers = nullptr, FILE * out = nullptr);
+	std::string executeRequest(std::string const& URL, std::string const& protocol = "https", std::string const& type = "GET",
+		std::string const &body = "", curl_slist * headers = nullptr);
 	//CURL *curl;
 	std::random_device mutable rDevice;
 	std::default_random_engine mutable randGenerator;
@@ -29,7 +29,7 @@ private:
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
-	std::tuple<std::future<void>, FILE*, std::string> getAllProblems() noexcept(false);
-	std::tuple<std::future<void>, FILE*, std::string> getQuestionsCount() noexcept(false);
+	std::future<std::string> getAllProblems() noexcept(false);
+	std::future<std::string> getQuestionsCount() noexcept(false);
 };
 
