@@ -9,23 +9,24 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     setStyleSheet("{background-color: rgb(250, 0, 0);}");
     auto rmInstance = RequestManager::getInstance();
     auto qCount = rmInstance->getQuestionsCount();
-    Task<std::string> qCountTask(std::move(qCount));
-    qCountTask.executeTask();
-    auto path = qCountTask.getResult();
-    Task<size_t> jTask(JsonManager::getQuestionsCount(path));
-    jTask.executeTask();
-    auto rez = jTask.getResult();
-    Task<std::vector<ProblemWidgetData>> jsonParsingTask(JsonManager::getProblemListPage(path));
-    jsonParsingTask.setPostCallBack([&path]() { std::filesystem::remove(path);});
-    jsonParsingTask.executeTask();
-    auto problems = jsonParsingTask.getResult();
+    qCount.wait();
+    auto path = qCount.get();
+    auto jTask = JsonManager::getQuestionsCount(path);
+    jTask.wait();
+    auto rez = jTask.get();
+    auto jsonParsingTask = JsonManager::getProblemListPage(path);
+    jsonParsingTask.wait();
+    auto problems = jsonParsingTask.get();
 
     for (auto& problem : problems)
     {
         ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty);
         ui.verticalLayout_1->addWidget(widget);
     }
+    
+    auto allQuestions = rmInstance->getAllProblems();
 }
 
 LeetCodeDesktop::~LeetCodeDesktop()
-{}
+{
+}

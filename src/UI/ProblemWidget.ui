@@ -54,6 +54,9 @@
           <property name="text">
            <string>Name</string>
           </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -87,6 +90,9 @@
             </property>
             <property name="text">
              <string>Acceptance</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

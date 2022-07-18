@@ -70,9 +70,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Common\Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Data\JsonManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>

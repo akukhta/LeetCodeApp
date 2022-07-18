@@ -3,8 +3,14 @@
 std::string const RequestManager::allProblemsURL = "https://leetcode.com/_next/data/Ldb_Fcc-UKa_pLAqMwyAp/problemset/all.json";
 std::string const RequestManager::csrfTokenFile = "csrf1";
 
+size_t write_data(void* ptr, size_t size, size_t nmemb, FILE* stream) {
+    size_t written = fwrite(ptr, size, nmemb, stream);
+    return written;
+}
+
 RequestManager::RequestManager()
 {
+    curl_global_init(CURL_GLOBAL_DEFAULT);
     getCSRFToken();
     randGenerator = std::default_random_engine(rDevice());
     dist = std::uniform_int_distribution<int>(INT_MIN + 1, INT_MAX - 1);
@@ -22,9 +28,20 @@ std::string RequestManager::executeRequest(std::string const& URL, std::string c
 {
     auto fileName = generateFileName(); 
 
-    fd = fopen(fileName.c_str(), "w");
+    fd = fopen(fileName.c_str(), "wb");
+
+    if (fd == nullptr)
+    {
+        throw std::runtime_error("Can`t open the file to write the request's answer");
+    }
 
     CURL *curl = curl_easy_init();
+
+    if (curl == nullptr)
+    {
+        throw std::runtime_error("Can`t init curl instance");
+    }
+
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, type.c_str());
     curl_easy_setopt(curl, CURLOPT_URL, URL.c_str());
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
@@ -40,12 +57,17 @@ std::string RequestManager::executeRequest(std::string const& URL, std::string c
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
     }
 
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, fd);
 
     curl_easy_perform(curl);
+    int code;
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &code);
     curl_easy_cleanup(curl);
+
     fclose(fd);
+    storedFiles.push_back(fileName);
+    
     return fileName;
 }
 
@@ -65,8 +87,7 @@ std::future<std::string> RequestManager::getAllProblems()
     headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
     std::string body = "{\"query\":\"query allQuestionsRaw {\\r\\n  allQuestions: allQuestionsRaw {\\r\\n    title\\r\\n    titleSlug\\r\\n    translatedTitle\\r\\n    questionId\\r\\n    questionFrontendId\\r\\n    status\\r\\n    difficulty\\r\\n    isPaidOnly\\r\\n    categoryTitle\\r\\n    __typename\\r\\n  }\\r\\n}\\r\\n\",\"variables\":{}}";
     
-    return std::async(std::launch::async,
-        &RequestManager::executeRequest, this, url, protocol, type, body, headers);
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers);});
 }
 
 std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
@@ -78,16 +99,21 @@ std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
     std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit: 50\\r\\n    skip: 1050\\r\\n    filters: {}\\r\\n  ) {\\r\\n    total: totalNum\\r\\n    questions: data {\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId: questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly: isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n      }\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n    }\\r\\n  }\\r\\n}\\r\\n    \",\"variables\":{}}";
-    
-    return std::async(std::launch::async,
-        &RequestManager::executeRequest, this, url, protocol, type, body, headers);
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
+RequestManager::~RequestManager()
+{
+    for (auto& file : storedFiles)
+    {
+        std::filesystem::remove(file);
+    }
 }
 
 void RequestManager::getCSRFToken()
 {
-    CURL* curl;
     CURLcode res;
-    curl = curl_easy_init();
+    CURL *curl = curl_easy_init();
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
         curl_easy_setopt(curl, CURLOPT_URL, "https://leetcode.com/");

@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\API\RequestManager.h" />
-    <ClInclude Include="src\Common\Task.h" />
     <ClInclude Include="src\Data\JsonManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

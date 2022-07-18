@@ -67,7 +67,7 @@ std::vector<ProblemWidgetData> JsonManager::_getProblemListPage(std::string cons
         QJsonObject obj = question.toObject();
         result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), obj.value("difficulty").toString() });
     }
-
+    jsonDoc.close();
     return result;
 }
 
@@ -89,6 +89,6 @@ size_t JsonManager::_getQuestionsCount(std::string const &fileName) noexcept(fal
     json = json.value("data").toObject();
     json = json.value("problemsetQuestionList").toObject();
     questionsCount = json.value("total").toInt();
-
+    jsonDoc.close();
     return questionsCount;
 }

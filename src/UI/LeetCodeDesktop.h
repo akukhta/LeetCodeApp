@@ -6,7 +6,6 @@
 #include "ProblemWidget.h"
 #include "../../src/API/RequestManager.h"
 #include "../../src/Data/JsonManager.h"
-#include "../../src/Common/Task.h"
 
 class LeetCodeDesktop : public QMainWindow
 {

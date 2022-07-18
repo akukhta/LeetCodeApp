@@ -1,4 +1,0 @@
-C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Release\LeetCodeApp.vcxproj.CopyComplete
-C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Release\LeetCodeApp.exe
-C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Release\libcurl.dll
-C:\Users\Aliaksei_Kukhta\LeetCodeApp\x64\Release\zlib1.dll

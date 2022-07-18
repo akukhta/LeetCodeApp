@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>400</height>
+    <width>826</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,8 +253,8 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>673</width>
-           <height>372</height>
+           <width>802</width>
+           <height>384</height>
           </rect>
          </property>
          <property name="sizePolicy">
