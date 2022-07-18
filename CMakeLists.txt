@@ -28,6 +28,8 @@ endif(UNIX)
 
 set(PROJECT_SOURCES
         src/Common/main.cpp
+	src/Common/NavButton.h
+	src/Common/NavButton.cpp
 	src/UI/LeetCodeDesktop.ui
 	src/UI/LeetCodeDesktop.h
 	src/UI/LeetCodeDesktop.cpp
