@@ -38,7 +38,6 @@ set(PROJECT_SOURCES
 	src/UI/ProblemWidget.ui
 	src/API/RequestManager.h
 	src/API/RequestManager.cpp
-	src/Common/Task.h
 	src/UI/WindowTool.h
 	src/UI/WindowTool.cpp
 	src/UI/WindowTool.ui
