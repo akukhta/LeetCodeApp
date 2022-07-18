@@ -28,6 +28,7 @@
     <QtMoc Include="src\UI\WindowTool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Common\NavButton.cpp" />
     <ClCompile Include="src\API\RequestManager.cpp" />
     <ClCompile Include="src\Common\main.cpp" />
     <ClCompile Include="src\Data\JsonManager.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="src\UI\WindowTool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="src\Common\NavButton.h" />
     <ClInclude Include="src\API\RequestManager.h" />
     <ClInclude Include="src\Data\JsonManager.h" />
   </ItemGroup>

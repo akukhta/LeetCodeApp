@@ -6,7 +6,19 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     ui.setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
     ui.verticalLayout_4->addWidget(new WindowTool(this));
-    setStyleSheet("{background-color: rgb(250, 0, 0);}");
+
+    for (unsigned short i = 1; i <= 6; i++)
+    {
+        NavButton* btn = new NavButton(i, QString::number(i));
+        ui.horizontalLayout_2->addWidget(btn);
+
+        if (i == 1)
+        {
+            btn->setActive();
+        }
+    }
+
+
     auto rmInstance = RequestManager::getInstance();
     auto qCount = rmInstance->getQuestionsCount();
     qCount.wait();
@@ -25,6 +37,11 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     }
     
     auto allQuestions = rmInstance->getAllProblems();
+}
+
+void LeetCodeDesktop::navBtnClicked()
+{
+    
 }
 
 LeetCodeDesktop::~LeetCodeDesktop()
