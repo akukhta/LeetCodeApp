@@ -114,6 +114,18 @@ std::future<std::string> RequestManager::getPage(size_t page) noexcept(false)
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
 
+std::future<std::string> RequestManager::getTasksDescription(std::string taskName) noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    std::string body = "{\"query\":\"query questionData($titleSlug: String!) {\\r\\nquestion(titleSlug: $titleSlug) {\\r\\nquestionId\\r\\nquestionFrontendId\\r\\nboundTopicId\\r\\ntitle\\r\\ntitleSlug\\r\\ncontent\\r\\ntranslatedTitle\\r\\ntranslatedContent\\r\\nisPaidOnly\\r\\ndifficulty\\r\\nlikes\\r\\ndislikes\\r\\nisLiked\\r\\nsimilarQuestions\\r\\nexampleTestcases\\r\\ncategoryTitle\\r\\ncontributors {\\r\\nusername\\r\\nprofileUrl\\r\\navatarUrl\\r\\n__typename\\r\\n}\\r\\ntopicTags {\\r\\nname\\r\\nslug\\r\\ntranslatedName\\r\\n__typename\\r\\n}\\r\\ncompanyTagStats\\r\\ncodeSnippets {\\r\\nlang\\r\\nlangSlug\\r\\ncode\\r\\n__typename\\r\\n}\\r\\nstats\\r\\nhints\\r\\nsolution {\\r\\nid\\r\\ncanSeeDetail\\r\\npaidOnly\\r\\nhasVideoSolution\\r\\npaidOnlyVideo\\r\\n__typename\\r\\n}\\r\\nstatus\\r\\nsampleTestCase\\r\\nmetaData\\r\\njudgerAvailable\\r\\njudgeType\\r\\nmysqlSchemas\\r\\nenableRunCode\\r\\nenableTestMode\\r\\nenableDebugger\\r\\nenvInfo\\r\\nlibraryUrl\\r\\nadminUrl\\r\\nchallengeQuestion {\\r\\nid\\r\\ndate\\r\\nincompleteChallengeCount\\r\\nstreakCount\\r\\ntype      __typename\\r\\n}\\r\\n__typename\\r\\n}\\r\\n}\",\"variables\":{\"titleSlug\":\"" + taskName + "\"}}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
 RequestManager::~RequestManager()
 {
     for (auto& file : storedFiles)

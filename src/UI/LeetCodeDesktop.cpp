@@ -50,7 +50,7 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
 
     for (auto& problem : problemsData)
     {
-        ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty);
+        ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty, problem.titleSlug);
         ui.verticalLayout_1->addWidget(widget);
     }
 }

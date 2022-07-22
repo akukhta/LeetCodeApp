@@ -5,8 +5,8 @@ QString const ProblemWidget::passtive = "border-radius: 15px; background-color: 
 QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
 QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(255, 255, 255);}";
 
-ProblemWidget::ProblemWidget(QString name, QString acceptance, QString difficulty, QWidget *parent)
-	: QMainWindow(parent)
+ProblemWidget::ProblemWidget(QString name, QString acceptance, QString difficulty, QString titleSlug, QWidget *parent)
+	: titleSlug(titleSlug), QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.nameLabel->setText(name);
@@ -32,6 +32,15 @@ bool ProblemWidget::event(QEvent* e)
         hoverMove(static_cast<QHoverEvent*>(e));
         return true;
         break;
+    case QEvent::MouseButtonPress:
+    {
+        auto reqManager = RequestManager::getInstance();
+        auto t = reqManager->getTasksDescription(titleSlug.toStdString());
+        t.wait();
+        QMessageBox box;
+        box.setText("Downloaded into " + QString::fromStdString(t.get()));
+        box.show();
+    }
     default:
         break;
     }

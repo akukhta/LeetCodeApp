@@ -33,6 +33,8 @@ public:
 	std::future<std::string> getAllProblems() noexcept(false);
 	std::future<std::string> getQuestionsCount() noexcept(false);
 	std::future<std::string> getPage(size_t page) noexcept(false);
+	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
+
 	size_t const questionsPerPage = 50;
 	~RequestManager();
 };

@@ -3,14 +3,16 @@
 #include <QMainWindow>
 #include <qevent.h>
 #include <qdebug.h>
+#include <qmessagebox.h>
 #include "ui_ProblemWidget.h"
+#include "../../src/API/RequestManager.h"
 
 class ProblemWidget : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	ProblemWidget(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QWidget* parent = nullptr);
+	ProblemWidget(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "", QWidget* parent = nullptr);
 	~ProblemWidget();
 
 protected:
@@ -30,6 +32,7 @@ private:
 	static QString const activeLabel;
 	void activated();
 	void leaved();
+	QString titleSlug;
 };
 
 struct ProblemWidgetData
@@ -37,4 +40,5 @@ struct ProblemWidgetData
 	QString name;
 	QString acceptance;
 	QString difficulty;
+	QString titleSlug;
 };
