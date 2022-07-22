@@ -6,6 +6,7 @@
 #include <qmessagebox.h>
 #include "ui_ProblemWidget.h"
 #include "../../src/API/RequestManager.h"
+#include "../../src/UI/TaskViewer.h"
 
 class ProblemWidget : public QMainWindow
 {

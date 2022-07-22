@@ -44,6 +44,9 @@ set(PROJECT_SOURCES
 	src/UI/WindowTool.h
 	src/UI/WindowTool.cpp
 	src/UI/WindowTool.ui
+	src/UI/TaskViewer.h
+	src/UI/TaskViewer.ui
+	src/UI/TaskViewer.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -37,9 +37,8 @@ bool ProblemWidget::event(QEvent* e)
         auto reqManager = RequestManager::getInstance();
         auto t = reqManager->getTasksDescription(titleSlug.toStdString());
         t.wait();
-        QMessageBox box;
-        box.setText("Downloaded into " + QString::fromStdString(t.get()));
-        box.show();
+        TaskViewer* w = new TaskViewer();
+        w->show();
     }
     default:
         break;

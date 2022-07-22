@@ -32,7 +32,10 @@
     <QtUic Include="src\UI\WindowTool.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="NavWidget.ui">
+    <QtUic Include="src\UI\NavWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\UI\TaskViewer.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -51,10 +54,10 @@
     <QtMoc Include="src\UI\WindowTool.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\Common\NavButton.h">
+    <QtMoc Include="src\UI\NavWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="NavWidget.h">
+    <QtMoc Include="src\UI\TaskViewer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -77,10 +80,10 @@
     <ClCompile Include="src\API\RequestManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common\NavButton.cpp">
+    <ClCompile Include="src\UI\NavWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NavWidget.cpp">
+    <ClCompile Include="src\UI\TaskViewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
