@@ -32,6 +32,9 @@
     <QtUic Include="src\UI\WindowTool.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="NavWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="src\UI\LeetCodeDesktop.qrc">
@@ -48,7 +51,10 @@
     <QtMoc Include="src\UI\WindowTool.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="NavButton.h">
+    <QtMoc Include="src\Common\NavButton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="NavWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -71,7 +77,10 @@
     <ClCompile Include="src\API\RequestManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NavButton.cpp">
+    <ClCompile Include="src\Common\NavButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NavWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

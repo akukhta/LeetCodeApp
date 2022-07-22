@@ -28,11 +28,12 @@ endif(UNIX)
 
 set(PROJECT_SOURCES
         src/Common/main.cpp
-	src/Common/NavButton.h
-	src/Common/NavButton.cpp
 	src/UI/LeetCodeDesktop.ui
 	src/UI/LeetCodeDesktop.h
 	src/UI/LeetCodeDesktop.cpp
+	src/UI/NavWidget.ui
+	src/UI/NavWidget.h
+	src/UI/NavWidget.cpp
 	src/Data/JsonManager.h
 	src/Data/JsonManager.cpp
 	src/UI/ProblemWidget.h

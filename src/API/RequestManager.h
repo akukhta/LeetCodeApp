@@ -26,11 +26,14 @@ private:
 	static std::string const csrfTokenFile;
 	std::string csrf;
 	std::vector<std::string> storedFiles;
+	CURL* curl;
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
 	std::future<std::string> getAllProblems() noexcept(false);
 	std::future<std::string> getQuestionsCount() noexcept(false);
+	std::future<std::string> getPage(size_t page) noexcept(false);
+	size_t const questionsPerPage = 50;
 	~RequestManager();
 };
 

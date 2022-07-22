@@ -6,44 +6,56 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     ui.setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
     ui.verticalLayout_4->addWidget(new WindowTool(this));
-
-    for (unsigned short i = 1; i <= 6; i++)
-    {
-        NavButton* btn = new NavButton(i, QString::number(i));
-        ui.horizontalLayout_2->addWidget(btn);
-
-        if (i == 1)
-        {
-            btn->setActive();
-        }
-    }
-
-
     auto rmInstance = RequestManager::getInstance();
     auto qCount = rmInstance->getQuestionsCount();
     qCount.wait();
     auto path = qCount.get();
     auto jTask = JsonManager::getQuestionsCount(path);
     jTask.wait();
-    auto rez = jTask.get();
-    auto jsonParsingTask = JsonManager::getProblemListPage(path);
-    jsonParsingTask.wait();
-    auto problems = jsonParsingTask.get();
+    pagesCount = ceil(static_cast<double>(jTask.get()) / questionsPerPage);
 
-    for (auto& problem : problems)
-    {
-        ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty);
-        ui.verticalLayout_1->addWidget(widget);
-    }
-    
+    NavWidget* wid = new NavWidget(pagesCount, std::bind(&LeetCodeDesktop::navWidBtn, this, std::placeholders::_1));
+    wid->setFixedWidth(ui.centralWidget->width() * 2);
+
+    ui.horizontalLayout_2->addWidget(wid);
+
+    loadProblemsFromFile(path);
+
     auto allQuestions = rmInstance->getAllProblems();
-}
-
-void LeetCodeDesktop::navBtnClicked()
-{
-    
 }
 
 LeetCodeDesktop::~LeetCodeDesktop()
 {
+}
+
+std::string LeetCodeDesktop::loadPage(size_t pageNum)
+{
+    auto rmInstance = RequestManager::getInstance();
+    auto page = rmInstance->getPage(pageNum);
+    page.wait();
+    return page.get();
+}
+
+void LeetCodeDesktop::loadProblemsFromFile(std::string path)
+{
+    auto jTask = JsonManager::getProblemListPage(path);
+    jTask.wait();
+    auto problemsData = jTask.get();
+
+    QLayoutItem* child;
+    while ((child = ui.verticalLayout_1->takeAt(0)) != 0) 
+    {
+        delete child;
+    }
+
+    for (auto& problem : problemsData)
+    {
+        ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty);
+        ui.verticalLayout_1->addWidget(widget);
+    }
+}
+
+void LeetCodeDesktop::navWidBtn(size_t pageNum)
+{
+    loadProblemsFromFile(loadPage(pageNum));
 }

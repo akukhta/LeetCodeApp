@@ -35,7 +35,7 @@ std::string RequestManager::executeRequest(std::string const& URL, std::string c
         throw std::runtime_error("Can`t open the file to write the request's answer");
     }
 
-    CURL *curl = curl_easy_init();
+    curl = curl_easy_init();
 
     if (curl == nullptr)
     {
@@ -98,7 +98,19 @@ std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
-    std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit: 50\\r\\n    skip: 1050\\r\\n    filters: {}\\r\\n  ) {\\r\\n    total: totalNum\\r\\n    questions: data {\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId: questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly: isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n      }\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n    }\\r\\n  }\\r\\n}\\r\\n    \",\"variables\":{}}";
+    std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit: 50\\r\\n    skip: 0\\r\\n    filters: {}\\r\\n  ) {\\r\\n    total: totalNum\\r\\n    questions: data {\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId: questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly: isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n      }\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n    }\\r\\n  }\\r\\n}\\r\\n    \",\"variables\":{}}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
+std::future<std::string> RequestManager::getPage(size_t page) noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit:" + std::to_string(questionsPerPage) + "\\r\\n    skip : " + std::to_string((page - 1) * questionsPerPage)+ "\\r\\n    filters : {}\\r\\n  ) {\\r\\n    total : totalNum\\r\\n    questions : data{\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId : questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly : isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n}\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n}\\r\\n  }\\r\\n }\\r\\n    \",\"variables\":{}}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
 
@@ -113,7 +125,8 @@ RequestManager::~RequestManager()
 void RequestManager::getCSRFToken()
 {
     CURLcode res;
-    CURL *curl = curl_easy_init();
+    curl = curl_easy_init();
+
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
         curl_easy_setopt(curl, CURLOPT_URL, "https://leetcode.com/");

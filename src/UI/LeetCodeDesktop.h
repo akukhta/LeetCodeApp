@@ -7,7 +7,7 @@
 #include "ProblemWidget.h"
 #include "../../src/API/RequestManager.h"
 #include "../../src/Data/JsonManager.h"
-#include "../../src/Common/NavButton.h"
+#include "../../src/UI/NavWidget.h"
 
 class LeetCodeDesktop : public QMainWindow
 {
@@ -17,9 +17,11 @@ public:
     LeetCodeDesktop(QWidget *parent = nullptr);
     ~LeetCodeDesktop();
 
-private slots:
-    void navBtnClicked();
-
 private:
     Ui::LeetCodeDesktopClass ui;
+    size_t const questionsPerPage = 50;
+    size_t pagesCount;
+    std::string loadPage(size_t pageNum);
+    void loadProblemsFromFile(std::string path);
+    void navWidBtn(size_t pageNum);
 };
