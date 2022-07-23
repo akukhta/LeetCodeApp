@@ -7,6 +7,7 @@
 #include "ui_ProblemWidget.h"
 #include "../../src/API/RequestManager.h"
 #include "../../src/UI/TaskViewer.h"
+#include "../../src/Common/ProblemWidgetData.h"
 
 class ProblemWidget : public QMainWindow
 {
@@ -33,13 +34,5 @@ private:
 	static QString const activeLabel;
 	void activated();
 	void leaved();
-	QString titleSlug;
-};
-
-struct ProblemWidgetData
-{
-	QString name;
-	QString acceptance;
-	QString difficulty;
 	QString titleSlug;
 };

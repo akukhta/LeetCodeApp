@@ -94,5 +94,8 @@
     <ClInclude Include="src\API\RequestManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Common\ProblemWidgetData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

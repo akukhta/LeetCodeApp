@@ -37,7 +37,7 @@ bool ProblemWidget::event(QEvent* e)
         auto reqManager = RequestManager::getInstance();
         auto t = reqManager->getTasksDescription(titleSlug.toStdString());
         t.wait();
-        TaskViewer* w = new TaskViewer();
+        TaskViewer* w = new TaskViewer(t.get());
         w->show();
     }
     default:

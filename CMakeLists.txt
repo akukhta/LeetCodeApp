@@ -47,6 +47,7 @@ set(PROJECT_SOURCES
 	src/UI/TaskViewer.h
 	src/UI/TaskViewer.ui
 	src/UI/TaskViewer.cpp
+	src/Common/ProblemWidgetData.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

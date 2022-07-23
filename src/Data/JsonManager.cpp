@@ -12,6 +12,12 @@ std::future<std::vector<ProblemWidgetData>> JsonManager::getProblemListPage(std:
     return task;
 }
 
+std::future<std::string> JsonManager::getProblemDescription(std::string const& fileName) noexcept(false)
+{
+    std::future<std::string> task = std::async(_getProblemDescription, fileName);
+    return task;
+}
+
 std::future<size_t> JsonManager::getQuestionsCount(std::string const &fileName) noexcept(false)
 {
     std::future<size_t> task = std::async(_getQuestionsCount, fileName);
@@ -68,6 +74,27 @@ std::vector<ProblemWidgetData> JsonManager::_getProblemListPage(std::string cons
         result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), obj.value("difficulty").toString(), obj.value("titleSlug").toString() });
     }
     jsonDoc.close();
+    return result;
+}
+
+std::string JsonManager::_getProblemDescription(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("question").toObject();
+    result = json.value("content").toString().toStdString();
+
     return result;
 }
 

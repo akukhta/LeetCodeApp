@@ -6,7 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include <future>
-#include "../../src/UI/ProblemWidget.h"
+#include "../../src/Common/ProblemWidgetData.h"
 
 class JsonManager
 {
@@ -20,7 +20,7 @@ public:
 private:
 	static std::vector<ProblemWidgetData> _parseProblemsFromJson(std::string const &fileName) noexcept(false);
 	static std::vector<ProblemWidgetData> _getProblemListPage(std::string const &fileName) noexcept(false);
-	static std::future<std::string> _getProblemDescription(std::string const& fileName) noexcept(false);
+	static std::string _getProblemDescription(std::string const& fileName) noexcept(false);
 	static size_t _getQuestionsCount(std::string const &fileName) noexcept(false);
 };
 
