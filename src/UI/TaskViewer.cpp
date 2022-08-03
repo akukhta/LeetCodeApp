@@ -5,7 +5,7 @@ TaskViewer::TaskViewer(std::string const& filePath, QWidget *parent)
 {
 	ui.setupUi(this);
 	connect(ui.comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(indexChanged(QString)));
-	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
+	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Tool | Qt::Dialog);
 
 	ui.gridLayout->addWidget(new WindowTool(std::bind(WindowTool::closePage, std::placeholders::_1), this),0,0,1,2);
 	auto taskDescription = JsonManager::getProblemDescription(this->filePath);

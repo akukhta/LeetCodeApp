@@ -25,6 +25,7 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     loadProblemsFromFile(path);
 
     auto allQuestions = rmInstance->getAllProblems();
+    
 }
 
 LeetCodeDesktop::~LeetCodeDesktop()
