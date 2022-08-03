@@ -16,6 +16,7 @@ class ProblemWidget : public QMainWindow
 public:
 	ProblemWidget(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "", QWidget* parent = nullptr);
 	~ProblemWidget();
+	static QWidget* previousScreen;
 
 protected:
 	void enterEvent(QEvent*);

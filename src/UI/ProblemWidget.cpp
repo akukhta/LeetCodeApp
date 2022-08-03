@@ -4,6 +4,7 @@ QString const ProblemWidget::active = "border-radius: 15px; background-color: rg
 QString const ProblemWidget::passtive = "border-radius: 15px; background-color: rgb(45, 45, 68);";
 QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
 QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(255, 255, 255);}";
+QWidget* ProblemWidget::previousScreen = nullptr;
 
 ProblemWidget::ProblemWidget(QString name, QString acceptance, QString difficulty, QString titleSlug, QWidget *parent)
 	: titleSlug(titleSlug), QMainWindow(parent)
@@ -38,6 +39,7 @@ bool ProblemWidget::event(QEvent* e)
         auto t = reqManager->getTasksDescription(titleSlug.toStdString());
         t.wait();
         TaskViewer* w = new TaskViewer(t.get());
+        previousScreen->hide();
         w->show();
     }
     default:

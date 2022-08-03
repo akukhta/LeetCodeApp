@@ -7,7 +7,7 @@ TaskViewer::TaskViewer(std::string const& filePath, QWidget *parent)
 	connect(ui.comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(indexChanged(QString)));
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
 
-	ui.gridLayout->addWidget(new WindowTool(this),0,0,1,2);
+	ui.gridLayout->addWidget(new WindowTool(std::bind(WindowTool::closePage, std::placeholders::_1), this),0,0,1,2);
 	auto taskDescription = JsonManager::getProblemDescription(this->filePath);
 	taskDescription.wait();
 	ui.textBrowser->setText(QString::fromStdString(taskDescription.get()));
