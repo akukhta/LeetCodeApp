@@ -43,6 +43,9 @@
     <QtRcc Include="src\UI\LeetCodeDesktop.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="Res\icons.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\UI\LeetCodeDesktop.h">

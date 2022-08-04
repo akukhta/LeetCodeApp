@@ -1,6 +1,6 @@
 #include "TaskViewer.h"
 
-TaskViewer::TaskViewer(std::string const& filePath, QWidget *parent)
+TaskViewer::TaskViewer(QWidget *parent)
 	: filePath(filePath), QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -8,10 +8,22 @@ TaskViewer::TaskViewer(std::string const& filePath, QWidget *parent)
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Tool | Qt::Dialog);
 
 	ui.gridLayout->addWidget(new WindowTool(std::bind(WindowTool::closePage, std::placeholders::_1), this),0,0,1,2);
-	auto taskDescription = JsonManager::getProblemDescription(this->filePath);
+}
+
+void TaskViewer::indexChanged(QString text)
+{
+	ui.textBrowser_2->setText(QString::fromStdString(snipsets[text.toStdString()]));
+}
+
+TaskViewer::~TaskViewer()
+{}
+
+void TaskViewer::getData(std::string const& filePath)
+{
+	auto taskDescription = JsonManager::getProblemDescription(filePath);
 	taskDescription.wait();
 	ui.textBrowser->setText(QString::fromStdString(taskDescription.get()));
-	auto codeSnipsets = JsonManager::getCodeSnipsets(this->filePath);
+	auto codeSnipsets = JsonManager::getCodeSnipsets(filePath);
 	codeSnipsets.wait();
 	snipsets = codeSnipsets.get();
 
@@ -22,13 +34,10 @@ TaskViewer::TaskViewer(std::string const& filePath, QWidget *parent)
 		ui.comboBox->addItem(QString::fromStdString(lang.first));
 		ui.comboBox->setItemData(idx++, QBrush(Qt::white), Qt::TextColorRole);
 	}
-
 }
 
-void TaskViewer::indexChanged(QString text)
+std::shared_ptr<TaskViewer> TaskViewer::getInstance()
 {
-	ui.textBrowser_2->setText(QString::fromStdString(snipsets[text.toStdString()]));
+	static std::shared_ptr<TaskViewer> viewer = std::shared_ptr<TaskViewer>(new TaskViewer());
+	return viewer;
 }
-
-TaskViewer::~TaskViewer()
-{}

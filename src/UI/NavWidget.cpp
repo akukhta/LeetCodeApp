@@ -6,6 +6,8 @@ NavWidget::NavWidget(size_t pagesCount, std::function<void(size_t)> callback, QW
 	: pagesCount(pagesCount), QWidget(parent), callback(callback)
 {
 	ui.setupUi(this);
+	ui.prevPage_btn->setIcon(QPixmap(":/icons/leftArrow.png"));
+	ui.nextPage_btn->setIcon(QPixmap(":/icons/arrow.png"));
 	ui.label->setText(sep + QString::number(pagesCount));
 	ui.prevPage_btn->setEnabled(false);
 }

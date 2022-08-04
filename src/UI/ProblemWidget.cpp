@@ -19,6 +19,8 @@ ProblemWidget::ProblemWidget(QString name, QString acceptance, QString difficult
 
 bool ProblemWidget::event(QEvent* e)
 {
+    static std::shared_ptr<TaskViewer> viewer = TaskViewer::getInstance();
+
     switch (e->type())
     {
     case QEvent::HoverEnter:
@@ -38,13 +40,14 @@ bool ProblemWidget::event(QEvent* e)
         auto reqManager = RequestManager::getInstance();
         auto t = reqManager->getTasksDescription(titleSlug.toStdString());
         t.wait();
-        TaskViewer* w = new TaskViewer(t.get());
         previousScreen->hide();
-        w->show();
+        viewer->getData(t.get());
+        viewer->show();
     }
     default:
         break;
     }
+    //return true;
     return QWidget::event(e);
 }
 

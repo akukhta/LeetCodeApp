@@ -2,17 +2,22 @@
 
 #include <QMainWindow>
 #include <qframe.h>
+#include <memory>
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/WindowTool.h"
 #include "ui_TaskViewer.h"
 
-class TaskViewer : public QMainWindow
+class TaskViewer : public QMainWindow, std::enable_shared_from_this<TaskViewer>
 {
 	Q_OBJECT
 
 public:
-	TaskViewer(std::string const &filePath, QWidget *parent = nullptr);
 	~TaskViewer();
+	void getData(std::string const& filePath);
+	static std::shared_ptr<TaskViewer> getInstance();
+
+private:
+	TaskViewer(QWidget *parent = nullptr);
 
 private slots:
 	void indexChanged(QString text);

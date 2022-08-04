@@ -50,6 +50,8 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
     jTask.wait();
     auto problemsData = jTask.get();
 
+    setUpdatesEnabled(false);
+
     for (auto& x : items)
     {
         x->hide();
@@ -64,9 +66,13 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
         items.push_back(widget);
         ui.verticalLayout_1->addWidget(widget);
     }
+
+    setUpdatesEnabled(true);
 }
 
 void LeetCodeDesktop::navWidBtn(size_t pageNum)
 {
+    auto a = rand();
     loadProblemsFromFile(loadPage(pageNum));
+    a -= rand();
 }

@@ -45,10 +45,6 @@ background: 2px solid  rgb(80, 80, 122);
           <property name="text">
            <string/>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>Res/profile.png</normaloff>Res/profile.png</iconset>
-          </property>
          </widget>
         </item>
         <item>
@@ -99,10 +95,6 @@ background-color: rgb(80, 80, 122);
           <property name="text">
            <string/>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>Res/shrink.png</normaloff>Res/shrink.png</iconset>
-          </property>
          </widget>
         </item>
         <item>
@@ -121,10 +113,6 @@ background-color: rgb(80, 80, 122);
           <property name="text">
            <string/>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>Res/closeIcon.png</normaloff>Res/closeIcon.png</iconset>
-          </property>
          </widget>
         </item>
        </layout>
@@ -135,6 +123,8 @@ background-color: rgb(80, 80, 122);
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../../Res/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -13,6 +13,7 @@ public:
 
 	static void closeApp(WindowTool* w);
 	static void closePage(WindowTool* w);
+	static void hidePage(WindowTool* w);
 
 	static QWidget* mainWindow;
 

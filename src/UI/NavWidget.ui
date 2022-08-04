@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>236</width>
+    <width>286</width>
     <height>45</height>
    </rect>
   </property>
@@ -71,10 +71,6 @@ background-color: rgb(80, 80, 122);
        <property name="text">
         <string/>
        </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>Res/leftArrow.png</normaloff>Res/leftArrow.png</iconset>
-       </property>
       </widget>
      </item>
      <item>
@@ -135,10 +131,6 @@ background-color: rgb(80, 80, 122);
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>Res/arrow.png</normaloff>Res/arrow.png</iconset>
        </property>
       </widget>
      </item>

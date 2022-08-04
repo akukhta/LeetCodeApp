@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>arrow.png</file>
+        <file>closeIcon.png</file>
+        <file>leftArrow.png</file>
+        <file>profile.png</file>
+        <file>shrink.png</file>
+    </qresource>
+</RCC>

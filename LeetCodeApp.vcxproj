@@ -18,6 +18,7 @@
     <QtUic Include="src\UI\WindowTool.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtRcc Include="Res\icons.qrc" />
     <QtRcc Include="src\UI\LeetCodeDesktop.qrc" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +98,9 @@
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
+    <Link>
+      <Profile>true</Profile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
