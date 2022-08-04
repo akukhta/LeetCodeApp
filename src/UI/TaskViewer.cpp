@@ -10,6 +10,11 @@ TaskViewer::TaskViewer(QWidget *parent)
 	ui.gridLayout->addWidget(new WindowTool(std::bind(WindowTool::closePage, std::placeholders::_1), this),0,0,1,2);
 }
 
+void TaskViewer::on_copyBtn_clicked()
+{
+	QApplication::clipboard()->setText(ui.textBrowser_2->toPlainText());
+}
+
 void TaskViewer::indexChanged(QString text)
 {
 	ui.textBrowser_2->setText(QString::fromStdString(snipsets[text.toStdString()]));

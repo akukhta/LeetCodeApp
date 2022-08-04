@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <qframe.h>
+#include <qclipboard.h>
 #include <memory>
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/WindowTool.h"
@@ -21,6 +22,7 @@ private:
 
 private slots:
 	void indexChanged(QString text);
+	void on_copyBtn_clicked();
 
 private:
 	Ui::TaskViewerClass ui;
