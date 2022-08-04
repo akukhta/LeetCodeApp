@@ -64,9 +64,7 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
 
 void LeetCodeDesktop::navWidBtn(size_t pageNum)
 {
-    auto a = rand();
     loadProblemsFromFile(loadPage(pageNum));
-    a -= rand();
 }
 
 void LeetCodeDesktop::createProblemWidgets()

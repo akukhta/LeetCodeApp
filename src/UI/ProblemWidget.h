@@ -24,10 +24,6 @@ protected:
 	void leaveEvent(QEvent*);
 	bool event(QEvent* e);
 
-	void hoverEnter(QHoverEvent* event);
-	void hoverLeave(QHoverEvent* event);
-	void hoverMove(QHoverEvent* event);
-
 private:
 	ProblemWidget(QWidget* parent = nullptr);
 	Ui::ProblemWidgetClass ui;

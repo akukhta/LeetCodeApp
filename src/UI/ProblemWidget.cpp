@@ -35,18 +35,6 @@ bool ProblemWidget::event(QEvent* e)
 
     switch (e->type())
     {
-    case QEvent::HoverEnter:
-        hoverEnter(static_cast<QHoverEvent*>(e));
-        return true;
-        break;
-    case QEvent::HoverLeave:
-        hoverLeave(static_cast<QHoverEvent*>(e));
-        return true;
-        break;
-    case QEvent::HoverMove:
-        hoverMove(static_cast<QHoverEvent*>(e));
-        return true;
-        break;
     case QEvent::MouseButtonPress:
     {
         auto reqManager = RequestManager::getInstance();
@@ -59,7 +47,7 @@ bool ProblemWidget::event(QEvent* e)
     default:
         break;
     }
-    //return true;
+
     return QWidget::event(e);
 }
 
@@ -71,22 +59,6 @@ void ProblemWidget::enterEvent(QEvent* e)
 void ProblemWidget::leaveEvent(QEvent* e)
 {
     leaved();
-}
-
-
-void ProblemWidget::hoverEnter(QHoverEvent* event)
-{
-    qDebug() << Q_FUNC_INFO << event->type();
-}
-
-void ProblemWidget::hoverLeave(QHoverEvent* event)
-{
-    qDebug() << Q_FUNC_INFO << event->type();
-}
-
-void ProblemWidget::hoverMove(QHoverEvent* event)
-{
-    qDebug() << Q_FUNC_INFO << event->type();
 }
 
 void ProblemWidget::activated()
