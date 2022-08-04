@@ -34,6 +34,8 @@ void TaskViewer::getData(std::string const& filePath)
 		ui.comboBox->addItem(QString::fromStdString(lang.first));
 		ui.comboBox->setItemData(idx++, QBrush(Qt::white), Qt::TextColorRole);
 	}
+
+	ui.textBrowser_2->setText(QString::fromStdString(snipsets.begin()->second));
 }
 
 std::shared_ptr<TaskViewer> TaskViewer::getInstance()

@@ -25,9 +25,6 @@ ProblemWidget::ProblemWidget(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	//ui.nameLabel->setText(name);
-	//ui.acceptanceLabel->setText(acceptance);
-	//ui.difficultyLabel->setText(difficulty);
 	setAttribute(Qt::WA_Hover, true);
     leaved();
 }
