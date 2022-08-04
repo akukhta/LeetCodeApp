@@ -9,14 +9,15 @@
 #include "../../src/UI/TaskViewer.h"
 #include "../../src/Common/ProblemWidgetData.h"
 
-class ProblemWidget : public QMainWindow
+class ProblemWidget : public QMainWindow, std::enable_shared_from_this<ProblemWidget>
 {
 	Q_OBJECT
 
 public:
-	ProblemWidget(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "", QWidget* parent = nullptr);
+	static std::shared_ptr<std::vector<ProblemWidget*>> getInstance();
 	~ProblemWidget();
 	static QWidget* previousScreen;
+	void setData(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "");
 
 protected:
 	void enterEvent(QEvent*);
@@ -28,6 +29,7 @@ protected:
 	void hoverMove(QHoverEvent* event);
 
 private:
+	ProblemWidget(QWidget* parent = nullptr);
 	Ui::ProblemWidgetClass ui;
 	static QString const active;
 	static QString const passtive;

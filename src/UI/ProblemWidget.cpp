@@ -6,13 +6,28 @@ QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
 QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(255, 255, 255);}";
 QWidget* ProblemWidget::previousScreen = nullptr;
 
-ProblemWidget::ProblemWidget(QString name, QString acceptance, QString difficulty, QString titleSlug, QWidget *parent)
-	: titleSlug(titleSlug), QMainWindow(parent)
+std::shared_ptr<std::vector<ProblemWidget*>> ProblemWidget::getInstance()
+{
+    static std::shared_ptr<std::vector<ProblemWidget*>> vec = std::shared_ptr<std::vector<ProblemWidget*>>(new std::vector<ProblemWidget*>());
+    
+    if (vec->empty())
+    {
+        for (size_t i = 0; i < 50; i++)
+        {
+            vec->push_back(new ProblemWidget());
+        }
+    }
+
+    return vec;
+}
+
+ProblemWidget::ProblemWidget(QWidget *parent)
+	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.nameLabel->setText(name);
-	ui.acceptanceLabel->setText(acceptance);
-	ui.difficultyLabel->setText(difficulty);
+	//ui.nameLabel->setText(name);
+	//ui.acceptanceLabel->setText(acceptance);
+	//ui.difficultyLabel->setText(difficulty);
 	setAttribute(Qt::WA_Hover, true);
     leaved();
 }
@@ -95,3 +110,11 @@ void ProblemWidget::leaved()
 
 ProblemWidget::~ProblemWidget()
 {}
+
+void ProblemWidget::setData(QString name, QString acceptance, QString difficulty, QString titleSlug)
+{
+    this->titleSlug = titleSlug;
+    ui.nameLabel->setText(name);
+    ui.acceptanceLabel->setText(acceptance);
+    ui.difficultyLabel->setText(difficulty);
+}

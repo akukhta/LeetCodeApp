@@ -21,7 +21,7 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     WindowTool::mainWindow = this;
 
     ui.horizontalLayout_2->addWidget(wid);
-
+    createProblemWidgets();
     loadProblemsFromFile(path);
 
     auto allQuestions = rmInstance->getAllProblems();
@@ -52,19 +52,11 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
 
     setUpdatesEnabled(false);
 
-    for (auto& x : items)
-    {
-        x->hide();
-        delete x;
-    }
+    auto pWidgets = ProblemWidget::getInstance();
 
-    items.clear();
-
-    for (auto& problem : problemsData)
+    for (size_t i = 0; i < problemsData.size(); i++)
     {
-        ProblemWidget* widget = new ProblemWidget(problem.name, problem.acceptance, problem.difficulty, problem.titleSlug, this);
-        items.push_back(widget);
-        ui.verticalLayout_1->addWidget(widget);
+        (*pWidgets)[i]->setData(problemsData[i].name, problemsData[i].acceptance, problemsData[i].difficulty, problemsData[i].titleSlug);
     }
 
     setUpdatesEnabled(true);
@@ -75,4 +67,14 @@ void LeetCodeDesktop::navWidBtn(size_t pageNum)
     auto a = rand();
     loadProblemsFromFile(loadPage(pageNum));
     a -= rand();
+}
+
+void LeetCodeDesktop::createProblemWidgets()
+{
+    auto pWidgets = ProblemWidget::getInstance();
+
+    for (size_t i = 0; i < pWidgets->size(); i++)
+    {
+        ui.verticalLayout_1->addWidget((*pWidgets)[i]);
+    }
 }

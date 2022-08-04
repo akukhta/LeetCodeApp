@@ -24,5 +24,5 @@ private:
     std::string loadPage(size_t pageNum);
     void loadProblemsFromFile(std::string path);
     void navWidBtn(size_t pageNum);
-    std::vector<QWidget*> items;
+    void createProblemWidgets();
 };
