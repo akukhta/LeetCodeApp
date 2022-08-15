@@ -39,14 +39,17 @@ set(PROJECT_SOURCES
 	src/UI/ProblemWidget.h
 	src/UI/ProblemWidget.cpp
 	src/UI/ProblemWidget.ui
+	src/UI/LoginWindow.ui
 	src/API/RequestManager.h
 	src/API/RequestManager.cpp
 	src/UI/WindowTool.h
 	src/UI/WindowTool.cpp
 	src/UI/WindowTool.ui
+	src/UI/LoginWindow.h
 	src/UI/TaskViewer.h
 	src/UI/TaskViewer.ui
 	src/UI/TaskViewer.cpp
+	src/UI/LoginWindow.cpp
 	src/Common/ProblemWidgetData.h
 )
 
