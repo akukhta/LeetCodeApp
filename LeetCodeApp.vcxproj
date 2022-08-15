@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.props" Condition="Exists('packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -11,6 +12,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="src\UI\LoginWidget.ui" />
     <QtUic Include="src\UI\NavWidget.ui" />
     <QtUic Include="src\UI\LeetCodeDesktop.ui" />
     <QtUic Include="src\UI\ProblemWidget.ui" />
@@ -31,6 +33,7 @@
     <QtMoc Include="src\UI\WindowTool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\UI\LoginWidget.cpp" />
     <ClCompile Include="src\UI\NavWidget.cpp" />
     <ClCompile Include="src\API\RequestManager.cpp" />
     <ClCompile Include="src\Common\main.cpp" />
@@ -41,11 +44,15 @@
     <ClCompile Include="src\UI\WindowTool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="src\UI\LoginWidget.h" />
     <QtMoc Include="src\UI\TaskViewer.h" />
     <QtMoc Include="src\UI\NavWidget.h" />
     <ClInclude Include="src\API\RequestManager.h" />
     <ClInclude Include="src\Common\ProblemWidgetData.h" />
     <ClInclude Include="src\Data\JsonManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA82D3CB-0AEF-4061-9E67-7E28BF73E5C0}</ProjectGuid>
@@ -138,5 +145,13 @@
     <Import Project="$(QtMsBuild)\qt.targets" />
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.targets" Condition="Exists('packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.props'))" />
+    <Error Condition="!Exists('packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.AliakseiKukhta.vcpkg.1.0.0\build\native\vcpkg.C.Users.AliakseiKukhta.vcpkg.targets'))" />
+  </Target>
 </Project>

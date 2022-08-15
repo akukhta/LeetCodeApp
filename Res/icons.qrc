@@ -5,5 +5,9 @@
         <file>leftArrow.png</file>
         <file>profile.png</file>
         <file>shrink.png</file>
+        <file>logo.svg</file>
+    </qresource>
+    <qresource prefix="/scripts">
+        <file alias="login">PythonApplication1.pyw</file>
     </qresource>
 </RCC>

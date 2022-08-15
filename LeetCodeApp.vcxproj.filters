@@ -38,6 +38,9 @@
     <QtUic Include="src\UI\TaskViewer.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="src\UI\LoginWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="src\UI\LeetCodeDesktop.qrc">
@@ -61,6 +64,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\UI\TaskViewer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\UI\LoginWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -89,6 +95,9 @@
     <ClCompile Include="src\UI\TaskViewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UI\LoginWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Data\JsonManager.h">
@@ -100,5 +109,8 @@
     <ClInclude Include="src\Common\ProblemWidgetData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

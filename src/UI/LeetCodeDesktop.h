@@ -8,6 +8,7 @@
 #include "../../src/API/RequestManager.h"
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/NavWidget.h"
+#include "../../src/UI/LoginWidget.h"
 
 class LeetCodeDesktop : public QMainWindow
 {
