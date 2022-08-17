@@ -17,7 +17,7 @@ public:
 	static std::shared_ptr<std::vector<ProblemWidget*>> getInstance();
 	~ProblemWidget();
 	static QWidget* previousScreen;
-	void setData(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "");
+	void setData(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "", QString status = "null");
 
 protected:
 	void enterEvent(QEvent*);
@@ -29,9 +29,11 @@ private:
 	Ui::ProblemWidgetClass ui;
 	static QString const active;
 	static QString const passtive;
+	static QString const passtiveNotSolved;
 	static QString const passtiveLabel;
 	static QString const activeLabel;
 	void activated();
 	void leaved();
 	QString titleSlug;
+	bool isSolved = false;
 };

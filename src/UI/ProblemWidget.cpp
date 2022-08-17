@@ -1,7 +1,8 @@
 #include "ProblemWidget.h"
 
 QString const ProblemWidget::active = "border-radius: 15px; background-color: rgb(255, 255, 255);";
-QString const ProblemWidget::passtive = "border-radius: 15px; background-color: rgb(45, 45, 68);";
+QString const ProblemWidget::passtive = "border-radius: 15px; background-color: rgb(118, 222, 109);";
+QString const ProblemWidget::passtiveNotSolved = "border-radius: 15px; background-color: rgb(45, 45, 68);";
 QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
 QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(255, 255, 255);}";
 QWidget* ProblemWidget::previousScreen = nullptr;
@@ -71,7 +72,7 @@ void ProblemWidget::activated()
 
 void ProblemWidget::leaved()
 {
-    setStyleSheet(passtive);
+    setStyleSheet(isSolved ? passtive : passtiveNotSolved);
     ui.nameLabel->setStyleSheet(passtiveLabel);
     ui.acceptanceLabel->setStyleSheet(passtiveLabel);
     ui.difficultyLabel->setStyleSheet(passtiveLabel);
@@ -80,10 +81,12 @@ void ProblemWidget::leaved()
 ProblemWidget::~ProblemWidget()
 {}
 
-void ProblemWidget::setData(QString name, QString acceptance, QString difficulty, QString titleSlug)
+void ProblemWidget::setData(QString name, QString acceptance, QString difficulty, QString titleSlug, QString status)
 {
     this->titleSlug = titleSlug;
     ui.nameLabel->setText(name);
     ui.acceptanceLabel->setText(acceptance);
     ui.difficultyLabel->setText(difficulty);
+    isSolved = status == "ac" ? true : false;
+    setStyleSheet(isSolved ? passtive : passtiveNotSolved);
 }

@@ -50,7 +50,8 @@ std::vector<ProblemWidgetData> JsonManager::_parseProblemsFromJson(std::string c
     for (auto question : arrayOfQuestions)
     {
         QJsonObject obj = question.toObject();
-        result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), obj.value("difficulty").toString(), obj.value("titleSlug").toString()});
+        result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), 
+            obj.value("difficulty").toString(), obj.value("titleSlug").toString(), obj.value("status").toString()});
     }
 
     return result;
@@ -77,7 +78,7 @@ std::vector<ProblemWidgetData> JsonManager::_getProblemListPage(std::string cons
     for (auto question : arrayOfQuestions)
     {
         QJsonObject obj = question.toObject();
-        result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), obj.value("difficulty").toString(), obj.value("titleSlug").toString() });
+        result.push_back({ obj.value("title").toString(), QString::number(obj.value("acRate").toDouble()), obj.value("difficulty").toString(), obj.value("titleSlug").toString(), obj.value("status").toString()});
     }
     jsonDoc.close();
     return result;

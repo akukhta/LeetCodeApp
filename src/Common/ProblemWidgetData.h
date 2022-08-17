@@ -7,4 +7,5 @@ struct ProblemWidgetData
 	QString acceptance;
 	QString difficulty;
 	QString titleSlug;
+	QString status;
 };

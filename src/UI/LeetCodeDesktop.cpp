@@ -58,7 +58,7 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
 
     for (size_t i = 0; i < problemsData.size(); i++)
     {
-        (*pWidgets)[i]->setData(problemsData[i].name, problemsData[i].acceptance, problemsData[i].difficulty, problemsData[i].titleSlug);
+        (*pWidgets)[i]->setData(problemsData[i].name, problemsData[i].acceptance, problemsData[i].difficulty, problemsData[i].titleSlug, problemsData[i].status);
     }
 
     setUpdatesEnabled(true);
