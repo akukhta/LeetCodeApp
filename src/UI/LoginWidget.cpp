@@ -18,6 +18,8 @@ void LoginWidget::on_closeBtn_clicked()
 
 void LoginWidget::on_guestBtn_clicked()
 {
+	w = new LeetCodeDesktop();
+	w->show();
 	close();
 }
 
@@ -32,4 +34,8 @@ void LoginWidget::on_loginBtn_clicked()
 	std::filesystem::remove("login.pyw");
 	CookieHandler::getInstance()->loadCookiesFromFile("cookies");
 	std::filesystem::remove("cookies");
+
+	w = new LeetCodeDesktop();
+	w->show();
+	close();
 }

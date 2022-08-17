@@ -6,6 +6,7 @@
 #include <filesystem>
 #include "ui_LoginWidget.h"
 #include "../../src/Common/CookieHandler.h"
+#include "../../src/UI/LeetCodeDesktop.h"
 
 class LoginWidget : public QMainWindow
 {
@@ -22,5 +23,5 @@ private slots:
 
 private:
 	Ui::LoginWidgetClass ui;
-
+	LeetCodeDesktop* w;
 };

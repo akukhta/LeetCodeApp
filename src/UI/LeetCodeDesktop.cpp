@@ -4,8 +4,6 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    LoginWidget* widget = new LoginWidget();
-    widget->show();
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
     ui.verticalLayout_4->addWidget(new WindowTool(std::bind(WindowTool::closeApp, std::placeholders::_1), this));
     auto rmInstance = RequestManager::getInstance();
@@ -61,6 +59,7 @@ void LeetCodeDesktop::loadProblemsFromFile(std::string path)
         (*pWidgets)[i]->setData(problemsData[i].name, problemsData[i].acceptance, problemsData[i].difficulty, problemsData[i].titleSlug, problemsData[i].status);
     }
 
+    ui.scrollArea->verticalScrollBar()->setValue(0);
     setUpdatesEnabled(true);
 }
 

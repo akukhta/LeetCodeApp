@@ -2,13 +2,13 @@
 
 #include <QtWidgets/QMainWindow>
 #include <unordered_map>
+#include <qscrollbar.h>
 #include "ui_LeetCodeDesktop.h"
 #include "WindowTool.h"
 #include "ProblemWidget.h"
 #include "../../src/API/RequestManager.h"
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/NavWidget.h"
-#include "../../src/UI/LoginWidget.h"
 
 class LeetCodeDesktop : public QMainWindow
 {
