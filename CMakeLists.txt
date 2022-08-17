@@ -51,6 +51,7 @@ set(PROJECT_SOURCES
 	src/UI/TaskViewer.cpp
 	src/UI/LoginWidget.cpp
 	src/Common/ProblemWidgetData.h
+	src/Common/CookieHandler.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
