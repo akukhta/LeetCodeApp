@@ -48,6 +48,7 @@
     <QtMoc Include="src\UI\TaskViewer.h" />
     <QtMoc Include="src\UI\NavWidget.h" />
     <ClInclude Include="src\API\RequestManager.h" />
+    <ClInclude Include="src\Common\CookieHandler.h" />
     <ClInclude Include="src\Common\ProblemWidgetData.h" />
     <ClInclude Include="src\Data\JsonManager.h" />
   </ItemGroup>

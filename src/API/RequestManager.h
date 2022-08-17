@@ -9,6 +9,7 @@
 #include <fstream>
 #include <filesystem>
 #include <tuple>
+#include "../../src/Common/CookieHandler.h"
 
 class RequestManager : public std::enable_shared_from_this<RequestManager>
 {

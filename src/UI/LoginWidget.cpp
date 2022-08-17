@@ -1,5 +1,4 @@
 #include "LoginWidget.h"
-#include <QFile>
 
 LoginWidget::LoginWidget(QWidget *parent)
 	: QMainWindow(parent)
@@ -30,4 +29,7 @@ void LoginWidget::on_loginBtn_clicked()
 	process.start("python.exe", { "login.pyw" });
 	process.waitForFinished();
 
+	std::filesystem::remove("login.pyw");
+	CookieHandler::getInstance()->loadCookiesFromFile("cookies");
+	std::filesystem::remove("cookies");
 }

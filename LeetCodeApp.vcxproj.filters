@@ -109,6 +109,9 @@
     <ClInclude Include="src\Common\ProblemWidgetData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Common\CookieHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

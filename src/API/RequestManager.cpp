@@ -84,7 +84,7 @@ std::future<std::string> RequestManager::getAllProblems()
     std::string type = "POST";
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
     std::string body = "{\"query\":\"query allQuestionsRaw {\\r\\n  allQuestions: allQuestionsRaw {\\r\\n    title\\r\\n    titleSlug\\r\\n    translatedTitle\\r\\n    questionId\\r\\n    questionFrontendId\\r\\n    status\\r\\n    difficulty\\r\\n    isPaidOnly\\r\\n    categoryTitle\\r\\n    __typename\\r\\n  }\\r\\n}\\r\\n\",\"variables\":{}}";
     
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers);});
@@ -97,7 +97,7 @@ std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
     std::string type = "POST";
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
     std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit: 50\\r\\n    skip: 0\\r\\n    filters: {}\\r\\n  ) {\\r\\n    total: totalNum\\r\\n    questions: data {\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId: questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly: isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n      }\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n    }\\r\\n  }\\r\\n}\\r\\n    \",\"variables\":{}}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
@@ -109,7 +109,7 @@ std::future<std::string> RequestManager::getPage(size_t page) noexcept(false)
     std::string type = "POST";
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
     std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit:" + std::to_string(questionsPerPage) + "\\r\\n    skip : " + std::to_string((page - 1) * questionsPerPage)+ "\\r\\n    filters : {}\\r\\n  ) {\\r\\n    total : totalNum\\r\\n    questions : data{\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId : questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly : isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n}\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n}\\r\\n  }\\r\\n }\\r\\n    \",\"variables\":{}}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
@@ -121,7 +121,7 @@ std::future<std::string> RequestManager::getTasksDescription(std::string taskNam
     std::string type = "POST";
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, std::string("Cookie: csrftoken=" + csrf).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
     std::string body = "{\"query\":\"query questionData($titleSlug: String!) {\\r\\nquestion(titleSlug: $titleSlug) {\\r\\nquestionId\\r\\nquestionFrontendId\\r\\nboundTopicId\\r\\ntitle\\r\\ntitleSlug\\r\\ncontent\\r\\ntranslatedTitle\\r\\ntranslatedContent\\r\\nisPaidOnly\\r\\ndifficulty\\r\\nlikes\\r\\ndislikes\\r\\nisLiked\\r\\nsimilarQuestions\\r\\nexampleTestcases\\r\\ncategoryTitle\\r\\ncontributors {\\r\\nusername\\r\\nprofileUrl\\r\\navatarUrl\\r\\n__typename\\r\\n}\\r\\ntopicTags {\\r\\nname\\r\\nslug\\r\\ntranslatedName\\r\\n__typename\\r\\n}\\r\\ncompanyTagStats\\r\\ncodeSnippets {\\r\\nlang\\r\\nlangSlug\\r\\ncode\\r\\n__typename\\r\\n}\\r\\nstats\\r\\nhints\\r\\nsolution {\\r\\nid\\r\\ncanSeeDetail\\r\\npaidOnly\\r\\nhasVideoSolution\\r\\npaidOnlyVideo\\r\\n__typename\\r\\n}\\r\\nstatus\\r\\nsampleTestCase\\r\\nmetaData\\r\\njudgerAvailable\\r\\njudgeType\\r\\nmysqlSchemas\\r\\nenableRunCode\\r\\nenableTestMode\\r\\nenableDebugger\\r\\nenvInfo\\r\\nlibraryUrl\\r\\nadminUrl\\r\\nchallengeQuestion {\\r\\nid\\r\\ndate\\r\\nincompleteChallengeCount\\r\\nstreakCount\\r\\ntype      __typename\\r\\n}\\r\\n__typename\\r\\n}\\r\\n}\",\"variables\":{\"titleSlug\":\"" + taskName + "\"}}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
@@ -160,6 +160,8 @@ void RequestManager::getCSRFToken()
 
     in >> csrf;
     in.close();
+
+    (*CookieHandler::getInstance())["csrftoken"] = csrf;
 
     std::filesystem::remove(csrfTokenFile);
 }

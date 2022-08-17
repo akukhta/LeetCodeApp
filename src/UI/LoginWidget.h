@@ -2,7 +2,10 @@
 
 #include <QMainWindow>
 #include <qprocess.h>
+#include <QFile>
+#include <filesystem>
 #include "ui_LoginWidget.h"
+#include "../../src/Common/CookieHandler.h"
 
 class LoginWidget : public QMainWindow
 {
