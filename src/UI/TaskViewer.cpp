@@ -31,6 +31,9 @@ void TaskViewer::getData(std::string const& filePath)
 	auto codeSnipsets = JsonManager::getCodeSnipsets(filePath);
 	codeSnipsets.wait();
 	snipsets = codeSnipsets.get();
+	auto testCase = JsonManager::getTestCase(filePath);
+	testCase.wait();
+	auto testCaseStr = testCase.get();
 
 	size_t idx = 0;
 
@@ -48,6 +51,15 @@ void TaskViewer::getData(std::string const& filePath)
 	{
 		ui.textBrowser_2->clear();
 		ui.comboBox->clear();
+	}
+
+	if (testCaseStr.empty())
+	{
+		ui.textBrowser_3->clear();
+	}
+	else
+	{
+		ui.textBrowser_3->setText(QString::fromStdString(testCaseStr));
 	}
 }
 

@@ -2,31 +2,37 @@
 
 std::future<std::vector<ProblemWidgetData>> JsonManager::parseProblemsFromJson(std::string const &fileName)
 {
-    std::future<std::vector<ProblemWidgetData>> task = std::async(_parseProblemsFromJson, fileName);
+    auto task = std::async(_parseProblemsFromJson, fileName);
     return task;
 }
 
 std::future<std::vector<ProblemWidgetData>> JsonManager::getProblemListPage(std::string const &fileName) noexcept(false)
 {
-    std::future<std::vector<ProblemWidgetData>> task = std::async(_getProblemListPage, fileName);
+    auto task = std::async(_getProblemListPage, fileName);
     return task;
 }
 
 std::future<std::string> JsonManager::getProblemDescription(std::string const& fileName) noexcept(false)
 {
-    std::future<std::string> task = std::async(_getProblemDescription, fileName);
+    auto task = std::async(_getProblemDescription, fileName);
     return task;
 }
 
 std::future<size_t> JsonManager::getQuestionsCount(std::string const &fileName) noexcept(false)
 {
-    std::future<size_t> task = std::async(_getQuestionsCount, fileName);
+    auto task = std::async(_getQuestionsCount, fileName);
     return task;
 }
 
 std::future<std::unordered_map<std::string, std::string>> JsonManager::getCodeSnipsets(std::string const& fileName) noexcept(false)
 {
-    std::future<std::unordered_map<std::string, std::string>> task = std::async(_getCodeSnipsets, fileName);
+    auto task = std::async(_getCodeSnipsets, fileName);
+    return task;
+}
+
+std::future<std::string> JsonManager::getTestCase(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getTestCase, fileName);
     return task;
 }
 
@@ -153,4 +159,26 @@ size_t JsonManager::_getQuestionsCount(std::string const &fileName) noexcept(fal
     questionsCount = json.value("total").toInt();
     jsonDoc.close();
     return questionsCount;
+}
+
+std::string JsonManager::_getTestCase(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("question").toObject();
+    result = json.value("sampleTestCase").toString().toStdString();
+
+    return result;
 }

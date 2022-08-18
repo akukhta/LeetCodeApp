@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1055</width>
-    <height>557</height>
+    <width>959</width>
+    <height>538</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,101 @@
     <item>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0" columnstretch="0,0">
+        <property name="spacing">
+         <number>6</number>
+        </property>
         <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="copyBtn">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+		border:2px;
+		background: 2px solid  rgb(80, 80, 122);
+		border-radius: 3px;
+}
+
+QPushButton:hover:!pressed
+{
+background: 2px solid  rgb(93, 148, 149);
+}</string>
+            </property>
+            <property name="text">
+             <string>Copy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+		border:2px;
+		background: 2px solid  rgb(80, 80, 122);
+		border-radius: 3px;
+}
+
+QPushButton:hover:!pressed
+{
+background: 2px solid  rgb(93, 148, 149);
+}</string>
+            </property>
+            <property name="text">
+             <string>Run</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+		border:2px;
+		background: 2px solid rgb(38, 179, 0);
+		border-radius: 3px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Submit</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QTextBrowser" name="textBrowser">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QComboBox" name="comboBox">
@@ -57,22 +150,6 @@
          </layout>
         </item>
         <item row="2" column="0">
-         <widget class="QTextBrowser" name="textBrowser">
-          <property name="font">
-           <font>
-            <family>Courier New</family>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout"/>
-        </item>
-        <item row="3" column="0">
          <widget class="QLabel" name="label">
           <property name="font">
            <font>
@@ -88,30 +165,80 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="copyBtn">
+        <item row="5" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout"/>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QTabWidget" name="tabWidget">
           <property name="font">
            <font>
             <family>Courier New</family>
-            <pointsize>12</pointsize>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-		border:2px;
-		background: 2px solid  rgb(80, 80, 122);
-		border-radius: 3px;
-}
+           <string notr="true">QTabWidget::pane {
+	;
+} 
 
-QPushButton:hover:!pressed
-{
-background: 2px solid  rgb(93, 148, 149);
+QTabBar::tab {
+  color: white;
+  background: rgb(43, 57, 89); 
+  border: solid rgb(40,40,40); 
+  padding: 2px;
+} 
+
+QTabBar::tab:selected { 
+  color: black;
+  background: white; 
+  margin-bottom: -1px; 
 }</string>
           </property>
-          <property name="text">
-           <string>Copy</string>
+          <property name="currentIndex">
+           <number>0</number>
           </property>
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>Testcase</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QTextBrowser" name="textBrowser_3">
+              <property name="font">
+               <font>
+                <family>Courier New</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: none;
+background-color: rgb(40, 40, 40);
+color: white;</string>
+              </property>
+              <property name="readOnly">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Run code result</string>
+           </attribute>
+          </widget>
          </widget>
         </item>
        </layout>
