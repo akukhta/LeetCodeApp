@@ -2,7 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [main]
+    branches: 
+        - main
+        - RunCodeBranch
     
 env:
   APP_PATH: "leetcodeDesktop"
