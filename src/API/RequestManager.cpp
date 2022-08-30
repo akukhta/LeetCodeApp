@@ -71,6 +71,46 @@ std::string RequestManager::executeRequest(std::string const& URL, std::string c
     return fileName;
 }
 
+void RequestManager::_runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback)
+{
+    std::string protocol = "https";
+    std::string url = std::format("https://leetcode.com/problems/{}/interpret_solution/", code->titleSlug);
+    std::string type = "POST";
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    headers = curl_slist_append(headers, std::format("referer: https://leetcode.com/problems/{}/submissions/", code->titleSlug).c_str());
+    std::string body = code->getString();
+
+    auto fileName = executeRequest(url, protocol, type, body, headers);
+    auto interpretIdTask = JsonManager::getInterpretID(fileName);
+    auto interpretId = interpretIdTask.get();
+
+    std::string status;
+
+    std::string checkUrl = std::format("https://leetcode.com/submissions/detail/{}/check/", interpretId);
+    std::string checkType = "GET";
+    struct curl_slist* checkHeaders = NULL;
+    checkHeaders = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    std::string checkFileName;
+
+    do
+    {
+        checkFileName = executeRequest(checkUrl, protocol, checkType, "", checkHeaders);
+        auto checkTask = JsonManager::getStatus(checkFileName);
+        checkTask.wait();
+        status = checkTask.get();
+
+    } while (status == "STARTED" || status == "PENDING");
+
+    if (status == "SUCCESS")
+    {
+        auto resultTask = JsonManager::getRunCodeResult(checkFileName);
+        resultTask.wait();
+        callback(resultTask.get());
+    }
+}
+
 std::shared_ptr<RequestManager> RequestManager::getInstance()
 {
     static std::shared_ptr<RequestManager> obj(new RequestManager());
@@ -125,6 +165,12 @@ std::future<std::string> RequestManager::getTasksDescription(std::string taskNam
     std::string body = "{\"query\":\"query questionData($titleSlug: String!) {\\r\\nquestion(titleSlug: $titleSlug) {\\r\\nquestionId\\r\\nquestionFrontendId\\r\\nboundTopicId\\r\\ntitle\\r\\ntitleSlug\\r\\ncontent\\r\\ntranslatedTitle\\r\\ntranslatedContent\\r\\nisPaidOnly\\r\\ndifficulty\\r\\nlikes\\r\\ndislikes\\r\\nisLiked\\r\\nsimilarQuestions\\r\\nexampleTestcases\\r\\ncategoryTitle\\r\\ncontributors {\\r\\nusername\\r\\nprofileUrl\\r\\navatarUrl\\r\\n__typename\\r\\n}\\r\\ntopicTags {\\r\\nname\\r\\nslug\\r\\ntranslatedName\\r\\n__typename\\r\\n}\\r\\ncompanyTagStats\\r\\ncodeSnippets {\\r\\nlang\\r\\nlangSlug\\r\\ncode\\r\\n__typename\\r\\n}\\r\\nstats\\r\\nhints\\r\\nsolution {\\r\\nid\\r\\ncanSeeDetail\\r\\npaidOnly\\r\\nhasVideoSolution\\r\\npaidOnlyVideo\\r\\n__typename\\r\\n}\\r\\nstatus\\r\\nsampleTestCase\\r\\nmetaData\\r\\njudgerAvailable\\r\\njudgeType\\r\\nmysqlSchemas\\r\\nenableRunCode\\r\\nenableTestMode\\r\\nenableDebugger\\r\\nenvInfo\\r\\nlibraryUrl\\r\\nadminUrl\\r\\nchallengeQuestion {\\r\\nid\\r\\ndate\\r\\nincompleteChallengeCount\\r\\nstreakCount\\r\\ntype      __typename\\r\\n}\\r\\n__typename\\r\\n}\\r\\n}\",\"variables\":{\"titleSlug\":\"" + taskName + "\"}}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
+
+void RequestManager::runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback)
+{
+    std::thread(&RequestManager::_runCode, this, std::move(code), callback).detach();
+}
+
 
 RequestManager::~RequestManager()
 {

@@ -15,6 +15,7 @@ public:
 private slots:
 	void on_prevPage_btn_clicked();
 	void on_nextPage_btn_clicked();
+	void on_lineEdit_textEdited();
 
 private:
 	Ui::NavWidgetClass ui;

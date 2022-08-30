@@ -40,6 +40,26 @@ void NavWidget::on_nextPage_btn_clicked()
 	}
 }
 
+void NavWidget::on_lineEdit_textEdited()
+{
+	int index = ui.lineEdit->text().toInt();
+
+	if (index < 1 || index > pagesCount)
+	{
+		return;
+	}
+
+	currentPage = index;
+
+	ui.prevPage_btn->setEnabled(currentPage > 1);
+	ui.nextPage_btn->setEnabled(currentPage < pagesCount);
+
+	if (callback)
+	{
+		callback(currentPage);
+	}
+}
+
 void NavWidget::on_prevPage_btn_clicked()
 {
 	if (currentPage > 1)

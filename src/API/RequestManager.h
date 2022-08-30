@@ -9,7 +9,10 @@
 #include <fstream>
 #include <filesystem>
 #include <tuple>
+#include <thread>
 #include "../../src/Common/CookieHandler.h"
+#include "../../src/Data/JsonManager.h"
+#include "../../src/Common/RunCodeResult.h"
 
 class RequestManager : public std::enable_shared_from_this<RequestManager>
 {
@@ -28,6 +31,7 @@ private:
 	std::string csrf;
 	std::vector<std::string> storedFiles;
 	CURL* curl;
+	void _runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
@@ -35,7 +39,7 @@ public:
 	std::future<std::string> getQuestionsCount() noexcept(false);
 	std::future<std::string> getPage(size_t page) noexcept(false);
 	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
-
+	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
 	size_t const questionsPerPage = 50;
 	~RequestManager();
 };
