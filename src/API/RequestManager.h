@@ -26,7 +26,7 @@ private:
 	std::uniform_int_distribution<int> mutable dist;
 	FILE *fd;
 	std::string static const allProblemsURL;
-	void getCSRFToken();
+	void getCSRFToken(std::string const &url = "https://leetcode.com/");
 	static std::string const csrfTokenFile;
 	std::string csrf;
 	std::vector<std::string> storedFiles;

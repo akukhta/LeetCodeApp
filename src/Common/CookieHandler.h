@@ -54,14 +54,18 @@ public:
 
 	std::string generateCookieString() const
 	{
-		std::string cookieStr = "Cookie:";
+		std::string cookieStr = "cookie: ";
 
 		for (auto const& cookie : cookies)
 		{
-			cookieStr += cookie.first + "=" + cookie.second + ";";
+			if (cookie.first == "csrftoken")
+			{
+				cookieStr += "csrftoken=L8RbzhWwCaRFS0ZOKWK0PNtajqfyERYIdWd26b85tptVjzqnYq56SLO1HuIlgHEB;";
+			}
+			cookieStr += cookie.first + "=" + cookie.second + "; ";
 		}
 
-		cookieStr.resize(cookieStr.length() - 1);
+		cookieStr.resize(cookieStr.length() - 2);
 		return cookieStr;
 	}
 };

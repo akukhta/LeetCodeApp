@@ -73,15 +73,61 @@ std::string RequestManager::executeRequest(std::string const& URL, std::string c
 
 void RequestManager::_runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback)
 {
+    //CURL* curl;
+    //CURLcode res;
+    //curl = curl_easy_init();
+    //if (curl) {
+    //    auto fileName = generateFileName();
+    //    fd = fopen(fileName.c_str(), "wb");
+    //    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+    //    curl_easy_setopt(curl, CURLOPT_URL, "https://leetcode.com/problems/two-sum/interpret_solution/");
+    //    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    //    curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
+    //    struct curl_slist* headers = NULL;
+    //    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+    //    curl_easy_setopt(curl, CURLOPT_WRITEDATA, fd);
+    //    headers = curl_slist_append(headers, "authority: leetcode.com");
+    //    headers = curl_slist_append(headers, "accept: */*");
+    //    headers = curl_slist_append(headers, "accept-language: ru-BY,ru;q=0.9,en-BY;q=0.8,en;q=0.7,de-BY;q=0.6,de;q=0.5,ru-RU;q=0.4,en-US;q=0.3");
+    //    headers = curl_slist_append(headers, "content-type: application/json");
+    //    auto s = CookieHandler::getInstance()->generateCookieString();
+    //    auto c = std::format("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
+    //    headers = curl_slist_append(headers, s.c_str());
+    //    headers = curl_slist_append(headers, "dnt: 1");
+    //    headers = curl_slist_append(headers, "origin: https://leetcode.com");
+    //    headers = curl_slist_append(headers, "referer: https://leetcode.com/problems/two-sum/submissions/");
+    //    headers = curl_slist_append(headers, "sec-ch-ua: \"Chromium\";v=\"104\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"104\"");
+    //    headers = curl_slist_append(headers, "sec-ch-ua-mobile: ?0");
+    //    headers = curl_slist_append(headers, "sec-ch-ua-platform: \"Windows\"");
+    //    headers = curl_slist_append(headers, "sec-fetch-dest: empty");
+    //    headers = curl_slist_append(headers, "sec-fetch-mode: cors");
+    //    headers = curl_slist_append(headers, "sec-fetch-site: same-origin");
+    //    headers = curl_slist_append(headers, "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36");
+    //    headers = curl_slist_append(headers, c.c_str());
+    //    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    //    //TODO: There is a problem inside getString(). HAS TO BE FIXED!;
+    //    auto codeData = code->getString();
+    //    //const char* data = "{\"question_id\":\"1\",\"data_input\":\"[2,7,11,15]\\n9\",\"lang\":\"cpp\",\"typed_code\":\"class Solution {\\npublic:\\n    vector<int> twoSum(vector<int>& nums, int target) {\\n        \\n        std::vector<int> res;\\n        int left = 0, right = nums.size() - 1;\\n        \\n        for (size_t i = 0; i < nums.size() - 1; i++)\\n        {\\n            for (size_t j = i + 1; j < nums.size(); j++)\\n            {\\n                if (nums[i] + nums[j] == target)\\n                {\\n                    res.push_back(i);\\n                    res.push_back(j);\\n                    return res;\\n                }\\n            }\\n        }\\n        \\n        return res;\\n    }\\n};\",\"judge_type\":\"small\"}";
+    //    const char* data = codeData.c_str();
+    //    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+    //    res = curl_easy_perform(curl);
+    //    fclose(fd);
+    //}
+    //curl_easy_cleanup(curl);
+
     std::string protocol = "https";
     std::string url = std::format("https://leetcode.com/problems/{}/interpret_solution/", code->titleSlug);
     std::string type = "POST";
+    auto referer = std::format("referer: https://leetcode.com/problems/{}/submissions/", code->titleSlug);
+
+    auto cookies = CookieHandler::getInstance()->generateCookieString();
+    auto xcsrf = std::format("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
-    headers = curl_slist_append(headers, std::format("referer: https://leetcode.com/problems/{}/submissions/", code->titleSlug).c_str());
+    headers = curl_slist_append(headers, cookies.c_str());
+    headers = curl_slist_append(headers, referer.c_str());
+    headers = curl_slist_append(headers, xcsrf.c_str());
     std::string body = code->getString();
-
     auto fileName = executeRequest(url, protocol, type, body, headers);
     auto interpretIdTask = JsonManager::getInterpretID(fileName);
     auto interpretId = interpretIdTask.get();
@@ -180,14 +226,14 @@ RequestManager::~RequestManager()
     }
 }
 
-void RequestManager::getCSRFToken()
+void RequestManager::getCSRFToken(std::string const &url)
 {
     CURLcode res;
     curl = curl_easy_init();
 
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(curl, CURLOPT_URL, "https://leetcode.com/");
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
         curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
         curl_easy_setopt(curl, CURLOPT_COOKIEJAR, csrfTokenFile.c_str());
@@ -207,7 +253,8 @@ void RequestManager::getCSRFToken()
     in >> csrf;
     in.close();
 
-    (*CookieHandler::getInstance())["csrftoken"] = csrf;
+    auto p = CookieHandler::getInstance();
+    (*p.get())["csrftoken"] = csrf;
 
     std::filesystem::remove(csrfTokenFile);
 }

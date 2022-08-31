@@ -24,8 +24,11 @@ void TaskViewer::on_copyBtn_clicked()
 
 void TaskViewer::on_runBtn_clicked()
 {
+	ui.runCodeResultBrowser->clear();
+	ui.tabWidget->setCurrentIndex(1);
+
 	std::unique_ptr<CodeToRun> ptr = std::make_unique<CodeToRun>();
-	ptr->code = ui.textBrowser_2->toPlainText().toStdString();
+	ptr->code = StringUtiles::formatString(ui.textBrowser_2->toPlainText().toStdString());
 	ptr->dataInput = ui.testCasesBrowser->toPlainText().toStdString();
 	ptr->lang = snipsets[ui.comboBox->currentText().toStdString()].first;
 	ptr->questionID = questionID;
