@@ -53,7 +53,7 @@ public:
 	}
 
 	template <typename... Args>
-	static std::string parse(std::string const& s, Args&&... args)
+	static std::string parse(std::string s, Args&&... args)
 	{
 		std::stringstream ss;
 
