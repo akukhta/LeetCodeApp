@@ -53,6 +53,8 @@ set(PROJECT_SOURCES
 	src/Common/ProblemWidgetData.h
 	src/Common/CookieHandler.h
 	src/Common/RunCodeResult.h
+	src/Data/CachedStorage.h
+	src/Data/CachedStorage.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
