@@ -4,6 +4,8 @@
 
 #ifdef __cpp_lib_format
 #include <format>
+#else
+#include <sstream>
 #endif
 
 class StringUtiles
