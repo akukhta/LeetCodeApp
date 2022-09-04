@@ -212,6 +212,15 @@ std::future<std::string> RequestManager::getTasksDescription(std::string taskNam
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
 
+std::future<std::string> RequestManager::getFile(std::string filePath) noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = filePath;
+    std::string type = "GET";
+
+    return std::async(std::launch::async, [this, url, protocol, type]() {return executeRequest(url, protocol, type); });
+}
+
 void RequestManager::runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback)
 {
     std::thread(&RequestManager::_runCode, this, std::move(code), callback).detach();

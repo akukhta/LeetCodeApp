@@ -39,6 +39,8 @@ public:
 	std::future<std::string> getQuestionsCount() noexcept(false);
 	std::future<std::string> getPage(size_t page) noexcept(false);
 	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
+	std::future<std::string> getFile(std::string filePath) noexcept(false);
+
 	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
 	size_t const questionsPerPage = 50;
 	~RequestManager();

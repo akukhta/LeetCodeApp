@@ -98,6 +98,9 @@
     <ClCompile Include="src\UI\LoginWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Data\CachedStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Data\JsonManager.h">
@@ -113,6 +116,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Common\RunCodeResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\CachedStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
