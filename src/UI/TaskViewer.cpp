@@ -37,6 +37,25 @@ void TaskViewer::on_runBtn_clicked()
 	RequestManager::getInstance()->runCode(std::move(ptr), std::bind(&TaskViewer::displayRunCodeResult, this, std::placeholders::_1));
 }
 
+void TaskViewer::findImages(std::string& context)
+{
+	static std::string pattern = "src=\"";
+	auto srcPos = context.find(pattern);
+
+	if (srcPos == std::string::npos)
+	{
+		return;
+	}
+
+	auto endPos = context.find("\"", srcPos + pattern.size());
+
+	auto address = context.substr(srcPos + pattern.size(), endPos - srcPos - pattern.size());
+
+	auto fileName = CachedStorage::getInstance()->getFile(address);
+
+	context.replace(srcPos + pattern.size(), endPos - srcPos - pattern.size(), fileName);
+}
+
 void TaskViewer::indexChanged(QString text)
 {
 	ui.textBrowser_2->setText(QString::fromStdString(snipsets[text.toStdString()].second));
@@ -49,7 +68,9 @@ void TaskViewer::getData(std::string const& filePath)
 {
 	auto taskDescription = JsonManager::getProblemDescription(filePath);
 	taskDescription.wait();
-	ui.textBrowser->setText(QString::fromStdString(taskDescription.get()));
+	auto taskDesc = taskDescription.get();
+	findImages(taskDesc);
+	ui.textBrowser->setText(QString::fromStdString(taskDesc));
 	auto codeSnipsets = JsonManager::getCodeSnipsets(filePath);
 	codeSnipsets.wait();
 	snipsets = codeSnipsets.get();

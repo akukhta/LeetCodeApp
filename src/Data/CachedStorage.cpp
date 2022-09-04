@@ -18,6 +18,6 @@ std::string CachedStorage::getFile(std::string const& url)
         loadTask.wait();
 
         auto r = cachedFiles.insert(std::make_pair(url, loadTask.get()));
-        return r.first->first;
+        return r.first->second;
     }
 }

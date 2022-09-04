@@ -7,6 +7,7 @@
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/WindowTool.h"
 #include "../../src/API/RequestManager.h"
+#include "../../src/Data/CachedStorage.h"
 #include "ui_TaskViewer.h"
 
 class TaskViewer : public QMainWindow, std::enable_shared_from_this<TaskViewer>
@@ -34,4 +35,5 @@ private:
 	size_t questionID;
 	std::string titleSlug;
 	std::vector<std::string> langSlugs;
+	void findImages(std::string& context);
 };
