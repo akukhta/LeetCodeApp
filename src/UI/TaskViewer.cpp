@@ -12,9 +12,9 @@ TaskViewer::TaskViewer(QWidget *parent)
 
 void TaskViewer::displayRunCodeResult(std::unique_ptr<RunCodeResult> result)
 {
-	ui.runCodeResultBrowser->append(QString::fromStdString(std::format("status: {}\n", result->statusRuntime)));
-	ui.runCodeResultBrowser->append(QString::fromStdString(std::format("memory: {}\n", result->statusMemory)));
-	ui.runCodeResultBrowser->append(QString::fromStdString(std::format("message: {}\n", result->statusMsg)));
+	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("status: {}\n", result->statusRuntime)));
+	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("memory: {}\n", result->statusMemory)));
+	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("message: {}\n", result->statusMsg)));
 }
 
 void TaskViewer::on_copyBtn_clicked()
@@ -28,7 +28,7 @@ void TaskViewer::on_runBtn_clicked()
 	ui.tabWidget->setCurrentIndex(1);
 
 	std::unique_ptr<CodeToRun> ptr = std::make_unique<CodeToRun>();
-	ptr->code = StringUtiles::formatString(ui.textBrowser_2->toPlainText().toStdString());
+	ptr->code = StringUtiles::formatCodeString(ui.textBrowser_2->toPlainText().toStdString());
 	ptr->dataInput = ui.testCasesBrowser->toPlainText().toStdString();
 	ptr->lang = snipsets[ui.comboBox->currentText().toStdString()].first;
 	ptr->questionID = questionID;

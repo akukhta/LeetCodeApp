@@ -116,12 +116,12 @@ void RequestManager::_runCode(std::unique_ptr<CodeToRun> code, std::function<voi
     //curl_easy_cleanup(curl);
 
     std::string protocol = "https";
-    std::string url = std::format("https://leetcode.com/problems/{}/interpret_solution/", code->titleSlug);
+    std::string url = StringUtiles::formatString("https://leetcode.com/problems/{}/interpret_solution/", code->titleSlug);
     std::string type = "POST";
-    auto referer = std::format("referer: https://leetcode.com/problems/{}/submissions/", code->titleSlug);
+    auto referer = StringUtiles::formatString("referer: https://leetcode.com/problems/{}/submissions/", code->titleSlug);
 
     auto cookies = CookieHandler::getInstance()->generateCookieString();
-    auto xcsrf = std::format("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
+    auto xcsrf = StringUtiles::formatString("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, cookies.c_str());
@@ -134,7 +134,7 @@ void RequestManager::_runCode(std::unique_ptr<CodeToRun> code, std::function<voi
 
     std::string status;
 
-    std::string checkUrl = std::format("https://leetcode.com/submissions/detail/{}/check/", interpretId);
+    std::string checkUrl = StringUtiles::formatString("https://leetcode.com/submissions/detail/{}/check/", interpretId);
     std::string checkType = "GET";
     struct curl_slist* checkHeaders = NULL;
     checkHeaders = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
