@@ -111,7 +111,8 @@ public:
 	template <typename... Args>
 	static std::string formatWrapper(std::string_view const& format, Args&&... args)
 	{
-		return parse(format, args...);
+		std::string s = format;
+		return parse(s, args...);
 	}
 
 #endif
