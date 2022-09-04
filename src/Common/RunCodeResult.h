@@ -28,7 +28,7 @@ public:
 #else
 
 	template <typename T>
-	void getByIndex(std::ostream& out, size_t neededIndex, size_t currentIndex, T arg)
+	static void getByIndex(std::ostream& out, size_t neededIndex, size_t currentIndex, T arg)
 	{
 		if (neededIndex == currentIndex)
 		{
@@ -42,7 +42,7 @@ public:
 
 
 	template <typename T, typename... Args>
-	void getByIndex(std::ostream& out, size_t neededIndex, size_t currentIndex, T arg, Args&&... args)
+	static void getByIndex(std::ostream& out, size_t neededIndex, size_t currentIndex, T arg, Args&&... args)
 	{
 		if (neededIndex == currentIndex)
 		{
