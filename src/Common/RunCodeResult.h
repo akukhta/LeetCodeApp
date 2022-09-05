@@ -93,7 +93,7 @@ public:
 
 					auto strBetween = s.substr(i + 2, end - i - 2);
 
-					if (end == std::string::npos || std::ranges::any_of(strBetween, [](auto x) {return x == '}' || x == '{'; }))
+					if (end == std::string::npos || std::any_of(strBetween.begin(), strBetween.end(), [](auto x) {return x == '}' || x == '{'; }))
 					{
 						throw std::runtime_error("Incorrect format string");
 					}
