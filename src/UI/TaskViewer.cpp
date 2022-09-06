@@ -40,20 +40,27 @@ void TaskViewer::on_runBtn_clicked()
 void TaskViewer::findImages(std::string& context)
 {
 	static std::string pattern = "src=\"";
-	auto srcPos = context.find(pattern);
+	size_t srcPos = 0, startingPos = 0;
 
-	if (srcPos == std::string::npos)
+	while (true)
 	{
-		return;
+		srcPos = context.find(pattern, startingPos);
+
+		if (srcPos == std::string::npos)
+		{
+			return;
+		}
+
+		auto endPos = context.find("\"", srcPos + pattern.size());
+
+		auto address = context.substr(srcPos + pattern.size(), endPos - srcPos - pattern.size());
+
+		auto fileName = CachedStorage::getInstance()->getFile(address);
+
+		context.replace(srcPos + pattern.size(), endPos - srcPos - pattern.size(), fileName);
+
+		startingPos = srcPos + 1;
 	}
-
-	auto endPos = context.find("\"", srcPos + pattern.size());
-
-	auto address = context.substr(srcPos + pattern.size(), endPos - srcPos - pattern.size());
-
-	auto fileName = CachedStorage::getInstance()->getFile(address);
-
-	context.replace(srcPos + pattern.size(), endPos - srcPos - pattern.size(), fileName);
 }
 
 void TaskViewer::indexChanged(QString text)
