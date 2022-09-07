@@ -9,8 +9,9 @@
 #include "../../src/API/RequestManager.h"
 #include "../../src/Data/JsonManager.h"
 #include "../../src/UI/NavWidget.h"
+#include "../../src/Common/DefaultSizeable.h"
 
-class LeetCodeDesktop : public QMainWindow
+class LeetCodeDesktop : public QMainWindow, public DefaultSizeable
 {
     Q_OBJECT
 

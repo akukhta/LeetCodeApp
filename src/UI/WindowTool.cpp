@@ -1,18 +1,25 @@
 #include "WindowTool.h"
 
-QWidget* WindowTool::mainWindow = nullptr;
+std::stack<QWidget*, std::list<QWidget*>> WindowTool::windows = std::stack<QWidget*, std::list<QWidget*>>();
 
-WindowTool::WindowTool(std::function<void(WindowTool*)> exitCallback, QWidget *parent)
-	: exitCallback(exitCallback), QMainWindow(parent)
+WindowTool::WindowTool(QWidget* currentWindow, std::function<void(WindowTool*)> exitCallback, QWidget *parent)
+	: currentWindow(currentWindow), exitCallback(exitCallback), QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.profileBtn->setIcon(QPixmap(":/icons/profile.png"));
 	ui.schrinkBtn->setIcon(QPixmap(":/icons/shrink.png"));
 	ui.closeBtn->setIcon(QPixmap(":/icons/closeIcon.png"));
+
+	defaultWindowSize = size();
 }
 
 WindowTool::~WindowTool()
 {}
+
+void WindowTool::UpdateActiveWindow(QWidget * newActiveWindow)
+{
+	currentWindow = newActiveWindow;
+}
 
 void WindowTool::closeApp(WindowTool *w)
 {
@@ -22,19 +29,14 @@ void WindowTool::closeApp(WindowTool *w)
 void WindowTool::closePage(WindowTool *w)
 {
 	w->parentWidget()->parentWidget()->close();
-
-	if (mainWindow)
-	{
-		mainWindow->show();
-	}
 }
 
 void WindowTool::hidePage(WindowTool* w)
 {
 	w->parentWidget()->parentWidget()->hide();
 
-	if (mainWindow)
+	if (w->currentWindow)
 	{
-		mainWindow->show();
+		w->currentWindow->show();
 	}
 }

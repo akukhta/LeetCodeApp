@@ -6,8 +6,9 @@ TaskViewer::TaskViewer(QWidget *parent)
 	ui.setupUi(this);
 	connect(ui.comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(indexChanged(QString)));
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Tool | Qt::Dialog);
-
-	ui.gridLayout->addWidget(new WindowTool(std::bind(WindowTool::closePage, std::placeholders::_1), this),0,0,1,2);
+	wTool = new WindowTool(this, std::bind(WindowTool::closePage, std::placeholders::_1), this);
+	ui.gridLayout->addWidget(wTool,0,0,1,2);
+	setDefaultSize(size());
 }
 
 void TaskViewer::displayRunCodeResult(std::unique_ptr<RunCodeResult> result)
@@ -116,6 +117,8 @@ void TaskViewer::getData(std::string const& filePath)
 	{
 		ui.testCasesBrowser->setText(QString::fromStdString(testCaseStr));
 	}
+
+	wTool->UpdateActiveWindow(this);
 }
 
 std::shared_ptr<TaskViewer> TaskViewer::getInstance()

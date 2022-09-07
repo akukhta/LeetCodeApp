@@ -18,6 +18,7 @@ public:
 	~ProblemWidget();
 	static QWidget* previousScreen;
 	void setData(QString name = "Name", QString acceptance = "Acceptance", QString difficulty = "Difficulty", QString titleSlug = "", QString status = "null");
+	static QSize defaultParentWidgetSize;
 
 protected:
 	void enterEvent(QEvent*);

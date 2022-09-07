@@ -4,7 +4,7 @@ QString const ProblemWidget::active = "border-radius: 15px; background-color: rg
 QString const ProblemWidget::passtive = "border-radius: 15px; background-color: rgb(118, 222, 109);";
 QString const ProblemWidget::passtiveNotSolved = "border-radius: 15px; background-color: rgb(45, 45, 68);";
 QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
-QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(255, 255, 255);}";
+QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(0, 0, 0);}";
 QWidget* ProblemWidget::previousScreen = nullptr;
 
 std::shared_ptr<std::vector<ProblemWidget*>> ProblemWidget::getInstance()
@@ -42,6 +42,7 @@ bool ProblemWidget::event(QEvent* e)
         auto t = reqManager->getTasksDescription(titleSlug.toStdString());
         t.wait();
         previousScreen->hide();
+        WindowTool::windows.push(this);
         viewer->getData(t.get());
         viewer->show();
     }

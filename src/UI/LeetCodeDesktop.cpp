@@ -5,7 +5,7 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
 {
     ui.setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
-    ui.verticalLayout_4->addWidget(new WindowTool(std::bind(WindowTool::closeApp, std::placeholders::_1), this));
+    ui.verticalLayout_4->addWidget(new WindowTool(this, std::bind(WindowTool::closeApp, std::placeholders::_1), this));
     auto rmInstance = RequestManager::getInstance();
     auto qCount = rmInstance->getQuestionsCount();
     qCount.wait();
@@ -18,13 +18,14 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
     wid->setFixedWidth(ui.centralWidget->width() * 2);
     
     ProblemWidget::previousScreen = this;
-    WindowTool::mainWindow = this;
+    WindowTool::windows.push(this);
 
     ui.horizontalLayout_2->addWidget(wid);
     createProblemWidgets();
     loadProblemsFromFile(path);
 
     auto allQuestions = rmInstance->getAllProblems();
+    setDefaultSize(size());
     
 }
 
