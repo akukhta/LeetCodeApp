@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>663</width>
-    <height>291</height>
+    <width>267</width>
+    <height>240</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>LoginWidget</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(40, 40, 40);
+   <string notr="true">background-color:  rgb(226, 226, 226);
 
 QPushButton
 {
@@ -24,32 +24,6 @@ QPushButton
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="2">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <spacer name="verticalSpacer_2">
@@ -66,19 +40,6 @@ QPushButton
       </item>
       <item>
        <spacer name="verticalSpacer_14">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <spacer name="verticalSpacer_15">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -245,19 +206,6 @@ QPushButton
        </spacer>
       </item>
       <item>
-       <spacer name="verticalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <spacer name="verticalSpacer_5">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -303,10 +251,10 @@ QPushButton
 
 QPushButton:hover:!pressed
 {
-		background: 2px solid  rgb(93, 148, 149);
+		background: 2px solid  rgb(249, 192, 112);
 		height: 30%;
 		border-radius: 10px;
-		color: white;
+		color: black;
 }</string>
         </property>
         <property name="text">
@@ -348,11 +296,11 @@ QPushButton:hover:!pressed
 
 QPushButton:hover:!pressed
 {
-		background: 2px solid  rgb(93, 148, 149);
+		background: 2px solid  rgb(249, 192, 112);
 		height: 30%;
 		width: 200%;
 		border-radius: 10px;
-		color: white;
+		color: black;
 }</string>
         </property>
         <property name="text">
@@ -394,11 +342,11 @@ QPushButton:hover:!pressed
 
 QPushButton:hover:!pressed
 {
-		background: 2px solid  rgb(93, 148, 149);
+		background: 2px solid rgb(249, 192, 112);
 		height: 30%;
 		width: 200%;
 		border-radius: 10px;
-		color: white;
+		color: black;
 }</string>
         </property>
         <property name="text">

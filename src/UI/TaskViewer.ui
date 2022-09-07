@@ -117,6 +117,7 @@
             <property name="styleSheet">
              <string notr="true">QPushButton
 {
+		color: white;
 		border:2px;
 		background: 2px solid  rgb(80, 80, 122);
 		border-radius: 3px;
@@ -124,7 +125,7 @@
 
 QPushButton:hover:!pressed
 {
-background: 2px solid  rgb(93, 148, 149);
+		background: 2px solid  rgb(93, 148, 149);
 }</string>
             </property>
             <property name="text">
@@ -143,6 +144,7 @@ background: 2px solid  rgb(93, 148, 149);
             <property name="styleSheet">
              <string notr="true">QPushButton
 {
+		color: white;
 		border:2px;
 		background: 2px solid  rgb(80, 80, 122);
 		border-radius: 3px;
@@ -170,8 +172,13 @@ background: 2px solid  rgb(93, 148, 149);
              <string notr="true">QPushButton
 {
 		border:2px;
-		background: 2px solid rgb(38, 179, 0);
+		background: 2px solid rgb(92, 197, 118);
 		border-radius: 3px;
+}
+
+QPushButton:hover:!pressed
+{
+background: 2px solid rgb(182, 250, 157);
 }</string>
             </property>
             <property name="text">
@@ -195,14 +202,13 @@ background: 2px solid  rgb(93, 148, 149);
 
 QTabBar::tab {
   color: white;
-  background: rgb(43, 57, 89); 
+  background: rgb(80, 80, 122); 
   border: solid rgb(40,40,40); 
-  padding: 2px;
+  padding: 7px;
 } 
 
 QTabBar::tab:selected { 
-  color: black;
-  background: white; 
+  background: rgb(93, 148, 149); 
   margin-bottom: -1px; 
 }</string>
           </property>

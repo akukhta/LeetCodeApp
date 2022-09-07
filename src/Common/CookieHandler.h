@@ -58,10 +58,6 @@ public:
 
 		for (auto const& cookie : cookies)
 		{
-			if (cookie.first == "csrftoken")
-			{
-				cookieStr += "csrftoken=L8RbzhWwCaRFS0ZOKWK0PNtajqfyERYIdWd26b85tptVjzqnYq56SLO1HuIlgHEB;";
-			}
 			cookieStr += cookie.first + "=" + cookie.second + "; ";
 		}
 
