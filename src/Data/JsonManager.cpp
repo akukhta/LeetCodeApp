@@ -1,5 +1,17 @@
 #include "JsonManager.h"
 
+std::future<std::string> JsonManager::getAvatarPath(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getAvatarPath, fileName);
+    return task;
+}
+
+std::future<std::string> JsonManager::getUsername(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getUsername, fileName);
+    return task;
+}
+
 std::future<std::string> JsonManager::getTitleSlug(std::string const& fileName) noexcept(false)
 {
     auto task = std::async(_getTitleSlug, fileName);
@@ -64,6 +76,48 @@ std::future<std::unique_ptr<RunCodeResult>> JsonManager::getRunCodeResult(std::s
 {
     auto task = std::async(_getRunCodeResult, fileName);
     return task;
+}
+
+std::string JsonManager::_getAvatarPath(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("userStatus").toObject();
+    result = json.value("avatar").toString().toStdString();
+
+    return result;
+}
+
+std::string JsonManager::_getUsername(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("userStatus").toObject();
+    result = json.value("username").toString().toStdString();
+
+    return result;
 }
 
 std::string JsonManager::_getTitleSlug(std::string const& fileName) noexcept(false)

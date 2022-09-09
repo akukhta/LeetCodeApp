@@ -35,6 +35,7 @@ private:
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
+	std::future<std::string> getUserInfo() noexcept(false);
 	std::future<std::string> getAllProblems() noexcept(false);
 	std::future<std::string> getQuestionsCount() noexcept(false);
 	std::future<std::string> getPage(size_t page) noexcept(false);

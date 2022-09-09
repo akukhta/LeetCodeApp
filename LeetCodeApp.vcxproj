@@ -53,6 +53,7 @@
     <ClInclude Include="src\Common\DefaultSizeable.h" />
     <ClInclude Include="src\Common\ProblemWidgetData.h" />
     <ClInclude Include="src\Common\RunCodeResult.h" />
+    <ClInclude Include="src\Common\User.h" />
     <ClInclude Include="src\Data\CachedStorage.h" />
     <ClInclude Include="src\Data\JsonManager.h" />
   </ItemGroup>

@@ -32,8 +32,20 @@ void LoginWidget::on_loginBtn_clicked()
 	process.waitForFinished();
 
 	std::filesystem::remove("login.pyw");
-	CookieHandler::getInstance()->loadCookiesFromFile("cookies");
+	auto cHandler = CookieHandler::getInstance();
+	cHandler->loadCookiesFromFile("cookies");
 	std::filesystem::remove("cookies");
+
+	if (cHandler->isLogged())
+	{
+		auto UserInfoGetTask = RequestManager::getInstance()->getUserInfo();
+		UserInfoGetTask.wait();
+		auto infoPath = UserInfoGetTask.get();
+		auto userName = JsonManager::getUsername(infoPath);
+		auto avatarPathTask = JsonManager::getAvatarPath(infoPath);
+		CachedStorage::getInstance()->loadUsersAvatar(avatarPathTask.get());
+		User::getInstance()->setUserInfo(userName.get());
+	}
 
 	w = new LeetCodeDesktop();
 	w->show();

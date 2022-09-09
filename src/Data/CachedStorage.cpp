@@ -21,3 +21,16 @@ std::string CachedStorage::getFile(std::string const& url)
         return r.first->second;
     }
 }
+
+void CachedStorage::loadUsersAvatar(std::string const& url, std::string const tag)
+{
+    auto loadTask = RequestManager::getInstance()->getFile(url);
+    loadTask.wait();
+    cachedFiles.insert(std::make_pair(tag, loadTask.get()));
+    
+}
+
+std::string CachedStorage::getAvatarPath()
+{
+    return cachedFiles["avatar"];
+}

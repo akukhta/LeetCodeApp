@@ -163,6 +163,23 @@ std::shared_ptr<RequestManager> RequestManager::getInstance()
     return obj;
 }
 
+std::future<std::string> RequestManager::getUserInfo() noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    std::string referer = "https://leetcode.com/problemset/all/";
+    auto xcsrf = StringUtiles::formatString("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
+    
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, ("referer: " + referer).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    headers = curl_slist_append(headers, xcsrf.c_str());
+    std::string body = "{\"query\":\"\\n    query globalData {\\n  userStatus {\\n    userId\\n    isSignedIn\\n    isMockUser\\n    isPremium\\n    isVerified\\n    username\\n    avatar\\n    isAdmin\\n    isSuperuser\\n    permissions\\n    isTranslator\\n    activeSessionId\\n    notificationStatus {\\n      lastModified\\n      numUnread\\n    }\\n  }\\n}\\n    \",\"variables\":{}}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
 std::future<std::string> RequestManager::getAllProblems()
 {
     std::string protocol = "https";

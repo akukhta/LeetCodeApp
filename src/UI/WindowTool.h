@@ -6,6 +6,7 @@
 #include <qapplication.h>
 #include <qdesktopwidget.h>
 #include "../../src/Common/DefaultSizeable.h"
+#include "../../src/Common/User.h"
 #include "ui_WindowTool.h"
 
 class WindowTool : public QMainWindow

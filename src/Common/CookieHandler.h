@@ -20,7 +20,7 @@ public:
 	{
 		return cookies[key];
 	}
-	
+
 	// Load and parse cookies in "key=value\n" format
 	void loadCookiesFromFile(std::string const& filePath)
 	{
@@ -63,5 +63,10 @@ public:
 
 		cookieStr.resize(cookieStr.length() - 2);
 		return cookieStr;
+	}
+
+	bool isLogged() const
+	{
+		return cookies.find("LEETCODE_SESSION") != cookies.end();
 	}
 };
