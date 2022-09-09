@@ -4,6 +4,7 @@ on:
   push:
     branches: 
         - main
+        - UserProfileInfo
     
 env:
   APP_PATH: "leetcodeDesktop"
