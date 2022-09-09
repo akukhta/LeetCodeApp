@@ -4,7 +4,6 @@ on:
   push:
     branches: 
         - main
-        - MediaBranch
     
 env:
   APP_PATH: "leetcodeDesktop"
