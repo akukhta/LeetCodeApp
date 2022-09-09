@@ -31,7 +31,8 @@ private:
 	static QString const active;
 	static QString const passtive;
 	static QString const passtiveNotSolved;
-	static QString const passtiveLabel;
+	static QString const passtiveLabelNotSolved;
+	static QString const passtiveLabelSolved;
 	static QString const activeLabel;
 	void activated();
 	void leaved();

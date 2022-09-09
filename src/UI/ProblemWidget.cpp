@@ -4,7 +4,8 @@ QString const ProblemWidget::active = "border-radius: 15px; background-color: rg
 QString const ProblemWidget::passtive = "border-radius: 15px; background-color: rgb(118, 222, 109);";
 QString const ProblemWidget::passtiveNotSolved = "border-radius: 15px; background-color: rgb(45, 45, 68);";
 QString const ProblemWidget::activeLabel = "QLabel { color : rgb(0,0, 0);}";
-QString const ProblemWidget::passtiveLabel = "QLabel { color : rgb(0, 0, 0);}";
+QString const ProblemWidget::passtiveLabelNotSolved = "QLabel { color : rgb(255, 255, 255);}";
+QString const ProblemWidget::passtiveLabelSolved = "QLabel { color : rgb(0, 0, 0);}";
 QWidget* ProblemWidget::previousScreen = nullptr;
 
 std::shared_ptr<std::vector<ProblemWidget*>> ProblemWidget::getInstance()
@@ -74,9 +75,9 @@ void ProblemWidget::activated()
 void ProblemWidget::leaved()
 {
     setStyleSheet(isSolved ? passtive : passtiveNotSolved);
-    ui.nameLabel->setStyleSheet(passtiveLabel);
-    ui.acceptanceLabel->setStyleSheet(passtiveLabel);
-    ui.difficultyLabel->setStyleSheet(passtiveLabel);
+    ui.nameLabel->setStyleSheet(isSolved ? passtiveLabelSolved : passtiveLabelNotSolved);
+    ui.acceptanceLabel->setStyleSheet(isSolved ? passtiveLabelSolved : passtiveLabelNotSolved);
+    ui.difficultyLabel->setStyleSheet(isSolved ? passtiveLabelSolved : passtiveLabelNotSolved);
 }
 
 ProblemWidget::~ProblemWidget()
