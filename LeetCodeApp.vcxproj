@@ -17,6 +17,7 @@
     <QtUic Include="src\UI\LeetCodeDesktop.ui" />
     <QtUic Include="src\UI\ProblemWidget.ui" />
     <QtUic Include="src\UI\TaskViewer.ui" />
+    <QtUic Include="src\UI\UserWidget.ui" />
     <QtUic Include="src\UI\WindowTool.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +43,11 @@
     <ClCompile Include="src\UI\LeetCodeDesktop.cpp" />
     <ClCompile Include="src\UI\ProblemWidget.cpp" />
     <ClCompile Include="src\UI\TaskViewer.cpp" />
+    <ClCompile Include="src\UI\UserWidget.cpp" />
     <ClCompile Include="src\UI\WindowTool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="src\UI\UserWidget.h" />
     <QtMoc Include="src\UI\LoginWidget.h" />
     <QtMoc Include="src\UI\TaskViewer.h" />
     <QtMoc Include="src\UI\NavWidget.h" />

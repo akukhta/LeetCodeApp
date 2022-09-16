@@ -41,6 +41,9 @@
     <QtUic Include="src\UI\LoginWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="src\UI\UserWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="src\UI\LeetCodeDesktop.qrc">
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\UI\LoginWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\UI\UserWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -99,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Data\CachedStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\UserWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

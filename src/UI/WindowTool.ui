@@ -39,7 +39,8 @@
 
 QPushButton:hover:!pressed
 {
-background: 2px solid  rgb(80, 80, 122);
+border: none;
+background-color: rgb(80, 80, 122);
 }</string>
           </property>
           <property name="text">
@@ -59,7 +60,8 @@ background: 2px solid  rgb(80, 80, 122);
            <string notr="true">QLabel { 
 border: none;
 color : rgb(255, 255, 255);
-}</string>
+}
+</string>
           </property>
           <property name="text">
            <string>Guest</string>

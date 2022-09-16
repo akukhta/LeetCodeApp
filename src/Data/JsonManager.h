@@ -27,6 +27,7 @@ public:
 	static std::future<std::string> getInterpretID(std::string const& fileName) noexcept(false);
 	static std::future<std::string> getStatus(std::string const& fileName) noexcept(false);
 	static std::future<std::unique_ptr<RunCodeResult>> getRunCodeResult(std::string const& fileName) noexcept (false);
+
 private:
 	static std::string _getAvatarPath(std::string const& fileName) noexcept(false);
 	static std::string _getUsername(std::string const& fileName) noexcept(false);
