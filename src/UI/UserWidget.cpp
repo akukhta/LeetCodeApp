@@ -6,7 +6,9 @@ UserWidget::UserWidget(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
 
-	auto infoTask = RequestManager::getInstance()->getProfileInfo(User::getInstance()->username);
+	auto rManager = RequestManager::getInstance();
+
+	auto infoTask = rManager->getProfileInfo(User::getInstance()->username);
 	
 	ui.avatar->setPixmap(QPixmap(QString::fromStdString(User::getInstance()->avatarPath)));
 
@@ -14,7 +16,7 @@ UserWidget::UserWidget(QWidget *parent)
 	
 	auto userInfoTask = JsonManager::getUserDetailsInfo(infoTask.get());
 	auto userInfo = userInfoTask.get();
-	auto taskStatsTask = RequestManager::getInstance()->getTaskSolvingProgress();
+	auto taskStatsTask = rManager->getTaskSolvingProgress();
 
 	ui.realNameLabel->setText(QString::fromStdString(userInfo->realName));
 	ui.giturlLabel->setText(QString::fromStdString(userInfo->githubUrl));
