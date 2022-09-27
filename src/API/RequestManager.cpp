@@ -258,7 +258,7 @@ std::future<std::string> RequestManager::getTaskSolvingProgress() noexcept(false
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
-    std::string body = "{\r\n    \"query\": \"\\n    query userProblemsSolved($username: String!) {\\n  allQuestionsCount {\\n    difficulty\\n    count\\n  }\\n  matchedUser(username: $username) {\\n    problemsSolvedBeatsStats {\\n      difficulty\\n      percentage\\n    }\\n    submitStatsGlobal {\\n      acSubmissionNum {\\n        difficulty\\n        count\\n      }\\n    }\\n  }\\n}\\n    \",\r\n    \"variables\": {\r\n        \"username\": \"akukhta\"\r\n    }\r\n}";
+    std::string body = "{\r\n    \"query\": \"\\n    query userProblemsSolved($username: String!) {\\n  allQuestionsCount {\\n    difficulty\\n    count\\n  }\\n  matchedUser(username: $username) {\\n    problemsSolvedBeatsStats {\\n      difficulty\\n      percentage\\n    }\\n    submitStatsGlobal {\\n      acSubmissionNum {\\n        difficulty\\n        count\\n      }\\n    }\\n  }\\n}\\n    \",\r\n    \"variables\": {\r\n        \"username\": \"" + User::getInstance()->username + "\"\r\n    }\r\n}";
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 
 }
