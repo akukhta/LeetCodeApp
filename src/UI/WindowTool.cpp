@@ -6,9 +6,21 @@ WindowTool::WindowTool(QWidget* currentWindow, std::function<void(WindowTool*)> 
 	: currentWindow(currentWindow), exitCallback(exitCallback), QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.profileBtn->setIcon(QPixmap(":/icons/profile.png"));
+	
 	ui.schrinkBtn->setIcon(QPixmap(":/icons/shrink.png"));
 	ui.closeBtn->setIcon(QPixmap(":/icons/closeIcon.png"));
+	
+	auto userInfo = User::getInstance();
+
+	if (userInfo->isLogged)
+	{
+		ui.label->setText(QString::fromStdString(userInfo->username));
+		ui.profileBtn->setIcon(QPixmap(QString::fromStdString(userInfo->avatarPath)));
+	}
+	else
+	{
+		ui.profileBtn->setIcon(QPixmap(":/icons/profile.png"));
+	}
 
 	defaultWindowSize = size();
 }

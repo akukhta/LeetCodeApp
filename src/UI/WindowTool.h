@@ -5,7 +5,9 @@
 #include <list>
 #include <qapplication.h>
 #include <qdesktopwidget.h>
+#include "../../src/UI/UserWidget.h"
 #include "../../src/Common/DefaultSizeable.h"
+#include "../../src/Common/User.h"
 #include "ui_WindowTool.h"
 
 class WindowTool : public QMainWindow
@@ -25,6 +27,15 @@ public:
 
 private slots:
 	
+	void on_profileBtn_clicked()
+	{
+		if (User::getInstance()->isLogged)
+		{
+			UserWidget *wid = new UserWidget();
+			wid->show();
+		}
+	}
+
 	void on_closeBtn_clicked()
 	{
 		exitCallback(this);

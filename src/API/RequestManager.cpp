@@ -163,6 +163,23 @@ std::shared_ptr<RequestManager> RequestManager::getInstance()
     return obj;
 }
 
+std::future<std::string> RequestManager::getUserInfo() noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    std::string referer = "https://leetcode.com/problemset/all/";
+    auto xcsrf = StringUtiles::formatString("x-csrftoken: {}", (*CookieHandler::getInstance())["csrftoken"]);
+    
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, ("referer: " + referer).c_str());
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    headers = curl_slist_append(headers, xcsrf.c_str());
+    std::string body = "{\"query\":\"\\n    query globalData {\\n  userStatus {\\n    userId\\n    isSignedIn\\n    isMockUser\\n    isPremium\\n    isVerified\\n    username\\n    avatar\\n    isAdmin\\n    isSuperuser\\n    permissions\\n    isTranslator\\n    activeSessionId\\n    notificationStatus {\\n      lastModified\\n      numUnread\\n    }\\n  }\\n}\\n    \",\"variables\":{}}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
 std::future<std::string> RequestManager::getAllProblems()
 {
     std::string protocol = "https";
@@ -219,6 +236,31 @@ std::future<std::string> RequestManager::getFile(std::string filePath) noexcept(
     std::string type = "GET";
 
     return std::async(std::launch::async, [this, url, protocol, type]() {return executeRequest(url, protocol, type); });
+}
+
+std::future<std::string> RequestManager::getProfileInfo(std::string const& userName) noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    std::string body = "{\"query\":\"\\n    query userProfile($username: String!) {\\n  matchedUser(username: $username) {\\n    contestBadge {\\n      name\\n      expired\\n      hoverText\\n      icon\\n    }\\n    username\\n    githubUrl\\n    twitterUrl\\n    linkedinUrl\\n    profile {\\n      ranking\\n      userAvatar\\n      realName\\n      aboutMe\\n      school\\n      websites\\n      countryName\\n      company\\n      jobTitle\\n      skillTags\\n      postViewCount\\n      postViewCountDiff\\n      reputation\\n      reputationDiff\\n      solutionCount\\n      solutionCountDiff\\n      categoryDiscussCount\\n      categoryDiscussCountDiff\\n    }\\n  }\\n}\\n    \",\"variables\":{\"username\":\"" + userName + "\"}}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+}
+
+std::future<std::string> RequestManager::getTaskSolvingProgress() noexcept(false)
+{
+    std::string protocol = "https";
+    std::string url = "https://leetcode.com/graphql";
+    std::string type = "POST";
+    struct curl_slist* headers = NULL;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
+    std::string body = "{\r\n    \"query\": \"\\n    query userProblemsSolved($username: String!) {\\n  allQuestionsCount {\\n    difficulty\\n    count\\n  }\\n  matchedUser(username: $username) {\\n    problemsSolvedBeatsStats {\\n      difficulty\\n      percentage\\n    }\\n    submitStatsGlobal {\\n      acSubmissionNum {\\n        difficulty\\n        count\\n      }\\n    }\\n  }\\n}\\n    \",\r\n    \"variables\": {\r\n        \"username\": \"" + User::getInstance()->username + "\"\r\n    }\r\n}";
+    return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
+
 }
 
 void RequestManager::runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback)

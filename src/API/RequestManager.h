@@ -14,6 +14,7 @@
 #include "../../src/Data/JsonManager.h"
 #include "../../src/Common/RunCodeResult.h"
 
+
 class RequestManager : public std::enable_shared_from_this<RequestManager>
 {
 private:
@@ -35,11 +36,14 @@ private:
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
+	std::future<std::string> getUserInfo() noexcept(false);
 	std::future<std::string> getAllProblems() noexcept(false);
 	std::future<std::string> getQuestionsCount() noexcept(false);
 	std::future<std::string> getPage(size_t page) noexcept(false);
 	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
 	std::future<std::string> getFile(std::string filePath) noexcept(false);
+	std::future<std::string> getProfileInfo(std::string const &userName) noexcept(false);
+	std::future<std::string> getTaskSolvingProgress() noexcept(false);
 
 	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
 	size_t const questionsPerPage = 50;

@@ -1,5 +1,17 @@
 #include "JsonManager.h"
 
+std::future<std::string> JsonManager::getAvatarPath(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getAvatarPath, fileName);
+    return task;
+}
+
+std::future<std::string> JsonManager::getUsername(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getUsername, fileName);
+    return task;
+}
+
 std::future<std::string> JsonManager::getTitleSlug(std::string const& fileName) noexcept(false)
 {
     auto task = std::async(_getTitleSlug, fileName);
@@ -64,6 +76,61 @@ std::future<std::unique_ptr<RunCodeResult>> JsonManager::getRunCodeResult(std::s
 {
     auto task = std::async(_getRunCodeResult, fileName);
     return task;
+}
+
+std::future<std::unique_ptr<UserDetails>> JsonManager::getUserDetailsInfo(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getUserDetailsInfo, fileName);
+    return task;
+}
+
+std::future<std::unique_ptr<TasksStat>> JsonManager::getTaskStats(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getTaskStats, fileName);
+    return task;
+}
+
+std::string JsonManager::_getAvatarPath(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("userStatus").toObject();
+    result = json.value("avatar").toString().toStdString();
+    
+
+    return result;
+}
+
+std::string JsonManager::_getUsername(std::string const& fileName) noexcept(false)
+{
+    std::string result;
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("userStatus").toObject();
+    result = json.value("username").toString().toStdString();
+
+    return result;
 }
 
 std::string JsonManager::_getTitleSlug(std::string const& fileName) noexcept(false)
@@ -314,6 +381,82 @@ std::unique_ptr<RunCodeResult> JsonManager::_getRunCodeResult(std::string const&
     result->statusRuntime = json.value("status_runtime").toString().toStdString();
     result->statusMemory = json.value("status_memory").toString().toStdString();
     result->statusMsg = json.value("status_msg").toString().toStdString();
+
+    return result;
+}
+
+std::unique_ptr<UserDetails> JsonManager::_getUserDetailsInfo(std::string const& fileName) noexcept(false)
+{
+    std::unique_ptr<UserDetails> result = std::make_unique<UserDetails>();
+
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("matchedUser").toObject();
+    
+    result->githubUrl = json.value("githubUrl").toString().toStdString();
+    
+    json = json.value("profile").toObject();
+
+    result->realName = json.value("realName").toString().toStdString();
+    result->rank = json.value("ranking").toInt();
+
+    jsonDoc.close();
+
+    return result;
+}
+
+std::unique_ptr<TasksStat> JsonManager::_getTaskStats(std::string const& fileName) noexcept(false)
+{
+    std::unique_ptr<TasksStat> result = std::make_unique<TasksStat>();
+
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+
+    QJsonArray allQuestions = json.value("allQuestionsCount").toArray();
+    QJsonObject _ = json.value("submitStatsGlobal").toObject();
+    QJsonArray stats = document.object().value("data").toObject().value("matchedUser").toObject().value("submitStatsGlobal").toObject().value("acSubmissionNum").toArray();
+
+    auto x = stats.count();
+
+    for (size_t i = 0; i < allQuestions.size(); i++)
+    {
+        QJsonObject allQ = allQuestions[i].toObject();
+        QJsonObject solvedQ = stats[i].toObject();
+
+        result->questions[i].first = allQ.value("count").toInt();
+        result->questions[i].second = solvedQ.value("count").toInt();
+    }
+
+    _ = json.value("matchedUser").toObject();
+    QJsonArray beats = _.value("problemsSolvedBeatsStats").toArray();
+
+    for (size_t i = 0; i < beats.size(); i++)
+    {
+        QJsonObject obj = beats[i].toObject();
+        result->beats[i] = obj.value("percentage").toDouble();
+    }
+
+    jsonDoc.close();
 
     return result;
 }
