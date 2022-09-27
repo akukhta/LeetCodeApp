@@ -29,6 +29,7 @@ public:
 	static std::future<std::string> getStatus(std::string const& fileName) noexcept(false);
 	static std::future<std::unique_ptr<RunCodeResult>> getRunCodeResult(std::string const& fileName) noexcept (false);
 	static std::future<std::unique_ptr<UserDetails>> getUserDetailsInfo(std::string const& fileName) noexcept (false);
+	static std::future<std::unique_ptr<TasksStat>> getTaskStats(std::string const& fileName) noexcept (false);
 
 private:
 	static std::string _getAvatarPath(std::string const& fileName) noexcept(false);
@@ -45,5 +46,6 @@ private:
 	static std::string _getStatus(std::string const& fileName) noexcept(false);
 	static std::unique_ptr<RunCodeResult> _getRunCodeResult(std::string const& fileName) noexcept (false);
 	static std::unique_ptr<UserDetails> _getUserDetailsInfo(std::string const& fileName) noexcept (false);
+	static std::unique_ptr<TasksStat> _getTaskStats(std::string const& fileName) noexcept (false);
 };
 

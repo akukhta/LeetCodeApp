@@ -43,6 +43,7 @@ public:
 	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
 	std::future<std::string> getFile(std::string filePath) noexcept(false);
 	std::future<std::string> getProfileInfo(std::string const &userName) noexcept(false);
+	std::future<std::string> getTaskSolvingProgress() noexcept(false);
 
 	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
 	size_t const questionsPerPage = 50;

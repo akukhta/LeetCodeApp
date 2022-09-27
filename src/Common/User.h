@@ -11,6 +11,13 @@ struct UserDetails
 	std::string githubUrl;
 }; 
 
+struct TasksStat
+{
+	enum difficulty : short {ALL, EASY, MEDIUM, HARD};
+	std::array<std::pair<size_t, size_t>, 4> questions;
+	std::array<float, 3> beats;
+};
+
 class User : public std::enable_shared_from_this<User>
 {
 private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <qprogressbar.h>
 #include "../../src/API/RequestManager.h"
 #include "../../src/Common/User.h"
 #include "ui_UserWidget.h"
