@@ -44,7 +44,7 @@ void LoginWidget::on_loginBtn_clicked()
 		auto userName = JsonManager::getUsername(infoPath);
 		auto avatarPathTask = JsonManager::getAvatarPath(infoPath);
 		CachedStorage::getInstance()->loadUsersAvatar(avatarPathTask.get());
-		User::getInstance()->setUserInfo(userName.get());
+		User::getInstance()->setUserInfo(userName.get(), CachedStorage::getInstance()->getAvatarPath());
 	}
 
 	w = new LeetCodeDesktop();

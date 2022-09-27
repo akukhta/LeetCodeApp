@@ -27,21 +27,16 @@ if (UNIX)
 endif(UNIX)
 
 set(PROJECT_SOURCES
-        src/Common/main.cpp
 	src/UI/LeetCodeDesktop.ui
 	src/UI/LeetCodeDesktop.h
 	src/UI/LeetCodeDesktop.cpp
 	src/UI/NavWidget.ui
 	src/UI/NavWidget.h
 	src/UI/NavWidget.cpp
-	src/Data/JsonManager.h
-	src/Data/JsonManager.cpp
 	src/UI/ProblemWidget.h
 	src/UI/ProblemWidget.cpp
 	src/UI/ProblemWidget.ui
 	src/UI/LoginWidget.ui
-	src/API/RequestManager.h
-	src/API/RequestManager.cpp
 	src/UI/WindowTool.h
 	src/UI/WindowTool.cpp
 	src/UI/WindowTool.ui
@@ -50,11 +45,21 @@ set(PROJECT_SOURCES
 	src/UI/TaskViewer.ui
 	src/UI/TaskViewer.cpp
 	src/UI/LoginWidget.cpp
+	src/UI/UserWidget.h
+	src/UI/UserWidget.cpp
+	src/UI/UserWidget.ui
+	src/API/RequestManager.h
+	src/API/RequestManager.cpp
+	src/Common/DefaultSizeable.h
 	src/Common/ProblemWidgetData.h
 	src/Common/CookieHandler.h
 	src/Common/RunCodeResult.h
+        src/Common/main.cpp
+	src/Common/User.h
 	src/Data/CachedStorage.h
 	src/Data/CachedStorage.cpp
+	src/Data/JsonManager.h
+	src/Data/JsonManager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

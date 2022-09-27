@@ -275,62 +275,6 @@ QProgressBar::chunk
       </item>
      </layout>
     </item>
-    <item row="0" column="0" rowspan="3">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="font">
-           <font>
-            <family>Courier New</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;</string>
-          </property>
-          <property name="text">
-           <string>Image</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <family>Courier New</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;</string>
-          </property>
-          <property name="text">
-           <string>Real Name</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <family>Courier New</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;</string>
-          </property>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="2">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
@@ -378,6 +322,94 @@ background-color: rgb(80, 80, 122);
        </size>
       </property>
      </spacer>
+    </item>
+    <item row="0" column="0" rowspan="4">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="avatar">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Image</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="realNameLabel">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Real Name</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="nicLabel">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="giturlLabel">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>GithubUrl</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="rankLabel">
+          <property name="font">
+           <font>
+            <family>Courier New</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Rank: </string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

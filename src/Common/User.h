@@ -2,17 +2,13 @@
 #include <memory>
 #include <string>
 #include <array>
-#include "../../src/Data/CachedStorage.h"
+
 
 struct UserDetails
 {
-	enum class questionsType : short {ALL, EASY, MEDIUM, HARD};
 	long long rank;
 	std::string realName;
 	std::string githubUrl;
-	std::array<size_t, 4> questionsCount;
-	std::array<float, 3> beatsInfo;
-	std::array<size_t, 4> solvedQuestions;
 }; 
 
 class User : public std::enable_shared_from_this<User>
@@ -34,11 +30,11 @@ public:
 		return instance;
 	}
 
-	void setUserInfo(std::string const& username)
+	void setUserInfo(std::string const& username, std::string const &avatarPath)
 	{
 		isLogged = true;
 		this->username = username;
-		this->avatarPath = CachedStorage::getInstance()->getAvatarPath();
+		this->avatarPath = avatarPath;
 	}
 
 	bool isLogged;

@@ -78,6 +78,12 @@ std::future<std::unique_ptr<RunCodeResult>> JsonManager::getRunCodeResult(std::s
     return task;
 }
 
+std::future<std::unique_ptr<UserDetails>> JsonManager::getUserDetailsInfo(std::string const& fileName) noexcept(false)
+{
+    auto task = std::async(_getUserDetailsInfo, fileName);
+    return task;
+}
+
 std::string JsonManager::_getAvatarPath(std::string const& fileName) noexcept(false)
 {
     std::string result;
@@ -95,6 +101,7 @@ std::string JsonManager::_getAvatarPath(std::string const& fileName) noexcept(fa
     json = json.value("data").toObject();
     json = json.value("userStatus").toObject();
     result = json.value("avatar").toString().toStdString();
+    
 
     return result;
 }
@@ -368,6 +375,36 @@ std::unique_ptr<RunCodeResult> JsonManager::_getRunCodeResult(std::string const&
     result->statusRuntime = json.value("status_runtime").toString().toStdString();
     result->statusMemory = json.value("status_memory").toString().toStdString();
     result->statusMsg = json.value("status_msg").toString().toStdString();
+
+    return result;
+}
+
+std::unique_ptr<UserDetails> JsonManager::_getUserDetailsInfo(std::string const& fileName) noexcept(false)
+{
+    std::unique_ptr<UserDetails> result = std::make_unique<UserDetails>();
+
+    QFile jsonDoc(QString::fromStdString(fileName));
+
+    if (!jsonDoc.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw std::runtime_error("Can`t open JSON file");
+    }
+
+    auto bArr = jsonDoc.readAll();
+
+    QJsonDocument document = QJsonDocument::fromJson(bArr);
+    QJsonObject json = document.object();
+    json = json.value("data").toObject();
+    json = json.value("matchedUser").toObject();
+    
+    result->githubUrl = json.value("githubUrl").toString().toStdString();
+    
+    json = json.value("profile").toObject();
+
+    result->realName = json.value("realName").toString().toStdString();
+    result->rank = json.value("ranking").toInt();
+
+    jsonDoc.close();
 
     return result;
 }

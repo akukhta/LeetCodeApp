@@ -14,6 +14,7 @@
 #include "../../src/Data/JsonManager.h"
 #include "../../src/Common/RunCodeResult.h"
 
+
 class RequestManager : public std::enable_shared_from_this<RequestManager>
 {
 private:
