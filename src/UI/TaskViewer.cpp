@@ -38,6 +38,21 @@ void TaskViewer::on_runBtn_clicked()
 	RequestManager::getInstance()->runCode(std::move(ptr), std::bind(&TaskViewer::displayRunCodeResult, this, std::placeholders::_1));
 }
 
+void TaskViewer::on_submitBtn_clicked()
+{
+	ui.runCodeResultBrowser->clear();
+	ui.tabWidget->setCurrentIndex(1);
+
+	std::unique_ptr<CodeToRun> ptr = std::make_unique<CodeToRun>();
+	ptr->code = StringUtiles::formatCodeString(ui.textBrowser_2->toPlainText().toStdString());
+	ptr->dataInput = ui.testCasesBrowser->toPlainText().toStdString();
+	ptr->lang = snipsets[ui.comboBox->currentText().toStdString()].first;
+	ptr->questionID = questionID;
+	ptr->titleSlug = titleSlug;
+
+	RequestManager::getInstance()->runCode(std::move(ptr), std::bind(&TaskViewer::displayRunCodeResult, this, std::placeholders::_1), true);
+}
+
 void TaskViewer::findImages(std::string& context)
 {
 	static std::string pattern = "src=\"";

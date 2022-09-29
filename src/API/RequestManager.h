@@ -32,7 +32,7 @@ private:
 	std::string csrf;
 	std::vector<std::string> storedFiles;
 	CURL* curl;
-	void _runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
+	void _runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback, bool isSubmited);
 
 public:
 	static std::shared_ptr<RequestManager> getInstance();
@@ -45,7 +45,7 @@ public:
 	std::future<std::string> getProfileInfo(std::string const &userName) noexcept(false);
 	std::future<std::string> getTaskSolvingProgress() noexcept(false);
 
-	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback);
+	void runCode(std::unique_ptr<CodeToRun> code, std::function<void(std::unique_ptr<RunCodeResult>)> callback, bool isSubmited = false);
 	size_t const questionsPerPage = 50;
 	~RequestManager();
 };

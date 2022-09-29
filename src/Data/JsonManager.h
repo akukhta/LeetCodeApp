@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <future>
 #include <unordered_map>
+#include <variant>
 #include "../../src/Common/ProblemWidgetData.h"
 #include "../../src/Common/RunCodeResult.h"
 #include "../../src/Common/User.h"
@@ -25,7 +26,7 @@ public:
 	static std::future<size_t> getQuestionsCount(std::string const &fileName) noexcept(false);
 	static std::future<std::unordered_map<std::string, std::pair<std::string, std::string>>> getCodeSnipsets(std::string const& fileName) noexcept(false);
 	static std::future<std::string> getTestCase(std::string const& fileName) noexcept(false);
-	static std::future<std::string> getInterpretID(std::string const& fileName) noexcept(false);
+	static std::future<std::variant<std::string, size_t>> getInterpretID(std::string const& fileName, bool isSubmitted = false) noexcept(false);
 	static std::future<std::string> getStatus(std::string const& fileName) noexcept(false);
 	static std::future<std::unique_ptr<RunCodeResult>> getRunCodeResult(std::string const& fileName) noexcept (false);
 	static std::future<std::unique_ptr<UserDetails>> getUserDetailsInfo(std::string const& fileName) noexcept (false);
@@ -42,7 +43,7 @@ private:
 	static std::unordered_map<std::string, std::pair<std::string, std::string>> _getCodeSnipsets(std::string const& fileName) noexcept(false);
 	static size_t _getQuestionsCount(std::string const &fileName) noexcept(false);
 	static std::string _getTestCase(std::string const& fileName) noexcept(false);
-	static std::string _getInterpretID(std::string const& fileName) noexcept(false);
+	static std::variant<std::string, size_t> _getInterpretID(std::string const& fileName, bool isSubmitted) noexcept(false);
 	static std::string _getStatus(std::string const& fileName) noexcept(false);
 	static std::unique_ptr<RunCodeResult> _getRunCodeResult(std::string const& fileName) noexcept (false);
 	static std::unique_ptr<UserDetails> _getUserDetailsInfo(std::string const& fileName) noexcept (false);

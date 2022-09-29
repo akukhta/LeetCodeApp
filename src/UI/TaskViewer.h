@@ -28,6 +28,7 @@ private slots:
 	void indexChanged(QString text);
 	void on_copyBtn_clicked();
 	void on_runBtn_clicked();
+	void on_submitBtn_clicked();
 
 private:
 	Ui::TaskViewerClass ui;

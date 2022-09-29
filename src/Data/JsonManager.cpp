@@ -60,9 +60,9 @@ std::future<std::string> JsonManager::getTestCase(std::string const& fileName) n
     return task;
 }
 
-std::future<std::string> JsonManager::getInterpretID(std::string const& fileName) noexcept(false)
+std::future<std::variant<std::string, size_t>> JsonManager::getInterpretID(std::string const& fileName, bool isSubmitted) noexcept(false)
 {
-    auto task = std::async(_getInterpretID, fileName);
+    auto task = std::async(_getInterpretID, fileName, isSubmitted);
     return task;
 }
 
@@ -323,9 +323,9 @@ std::string JsonManager::_getTestCase(std::string const& fileName) noexcept(fals
     return result;
 }
 
-std::string JsonManager::_getInterpretID(std::string const& fileName) noexcept(false)
+std::variant<std::string, size_t> JsonManager::_getInterpretID(std::string const& fileName, bool isSubmitted) noexcept(false)
 {
-    std::string result;
+    std::variant<std::string, size_t> result;
 
     QFile jsonDoc(QString::fromStdString(fileName));
 
@@ -338,7 +338,17 @@ std::string JsonManager::_getInterpretID(std::string const& fileName) noexcept(f
 
     QJsonDocument document = QJsonDocument::fromJson(bArr);
     QJsonObject json = document.object();
-    result = json.value("interpret_id").toString().toStdString();
+    //SubID is int!!!
+    auto obj = json.value(isSubmitted ? "submission_id" : "interpret_id");
+
+    if (isSubmitted)
+    {
+        result = static_cast<size_t>(obj.toInt());
+    }
+    else
+    {
+        result = obj.toString().toStdString();
+    }
 
     return result;
 }
