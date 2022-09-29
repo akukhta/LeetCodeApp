@@ -9,6 +9,7 @@ It's written in C++. GUI is based on Qt framework.
 <li> libcurl </li>
 <li> PyQt </li>
 <li> QtWidgets5 </li>
+<li> Python </li>
 
 <h2> Supported operating systems: </h2>
 <li> Windows </li>
