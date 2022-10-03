@@ -147,6 +147,9 @@ struct RunCodeResult
 	std::string statusRuntime;
 	std::string statusMemory;
 	std::string statusMsg;
+	std::string fullCompileError;
+	bool compileError;
+	float runtimePercentile, memoryPercentile;
 };
 
 struct CodeToRun

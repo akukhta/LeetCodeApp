@@ -13,9 +13,21 @@ TaskViewer::TaskViewer(QWidget *parent)
 
 void TaskViewer::displayRunCodeResult(std::unique_ptr<RunCodeResult> result)
 {
-	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("status: {}\n", result->statusRuntime)));
+	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("execution time: {}\n", result->statusRuntime)));
 	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("memory: {}\n", result->statusMemory)));
 	ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("message: {}\n", result->statusMsg)));
+	
+	if (result->compileError)
+	{
+		ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("compiler output: {}\n", result->fullCompileError)));
+	}
+	else
+	{
+		ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("rentime percentile: {}\n", std::to_string(result->runtimePercentile))));
+		ui.runCodeResultBrowser->append(QString::fromStdString(StringUtiles::formatString("memory percentile: {}\n", std::to_string(result->memoryPercentile))));
+	}
+
+
 }
 
 void TaskViewer::on_copyBtn_clicked()

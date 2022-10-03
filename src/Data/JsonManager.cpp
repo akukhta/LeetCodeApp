@@ -391,6 +391,10 @@ std::unique_ptr<RunCodeResult> JsonManager::_getRunCodeResult(std::string const&
     result->statusRuntime = json.value("status_runtime").toString().toStdString();
     result->statusMemory = json.value("status_memory").toString().toStdString();
     result->statusMsg = json.value("status_msg").toString().toStdString();
+    result->compileError = result->statusMsg == "Compile Error" || result->statusMsg == "Wrong answer" ? true : false;
+    result->fullCompileError = json.value("full_compile_error").toString().toStdString();
+    result->runtimePercentile = static_cast<float>(json.value("runtime_percentile").toDouble());
+    result->memoryPercentile = static_cast<float>(json.value("memory_percentile").toDouble());
 
     return result;
 }
