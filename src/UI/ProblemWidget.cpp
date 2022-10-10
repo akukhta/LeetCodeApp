@@ -90,5 +90,19 @@ void ProblemWidget::setData(QString name, QString acceptance, QString difficulty
     ui.acceptanceLabel->setText(acceptance);
     ui.difficultyLabel->setText(difficulty);
     isSolved = status == "ac" ? true : false;
-    setStyleSheet(isSolved ? passtive : passtiveNotSolved);
+
+    if (isSolved)
+    {
+        setStyleSheet(passtive);
+        ui.nameLabel->setStyleSheet(activeLabel);
+        ui.acceptanceLabel->setStyleSheet(activeLabel);
+        ui.difficultyLabel->setStyleSheet(activeLabel);
+    }
+    else
+    {
+        setStyleSheet(passtiveNotSolved);
+        ui.nameLabel->setStyleSheet(passtiveLabelNotSolved);
+        ui.acceptanceLabel->setStyleSheet(passtiveLabelNotSolved);
+        ui.difficultyLabel->setStyleSheet(passtiveLabelNotSolved);
+    }
 }

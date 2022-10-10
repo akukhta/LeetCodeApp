@@ -31,7 +31,7 @@ private slots:
 	{
 		if (User::getInstance()->isLogged)
 		{
-			UserWidget *wid = new UserWidget();
+			auto wid = UserWidget::getInstance();
 			wid->show();
 		}
 	}

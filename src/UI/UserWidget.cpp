@@ -38,3 +38,9 @@ UserWidget::UserWidget(QWidget *parent)
 
 UserWidget::~UserWidget()
 {}
+
+std::shared_ptr<UserWidget> UserWidget::getInstance()
+{
+	static std::shared_ptr<UserWidget> ptr = std::shared_ptr<UserWidget>(new UserWidget());
+	return ptr;
+}

@@ -6,20 +6,21 @@
 #include "../../src/Common/User.h"
 #include "ui_UserWidget.h"
 
-class UserWidget : public QMainWindow
+class UserWidget : public QMainWindow, public std::enable_shared_from_this<UserWidget>
 {
 	Q_OBJECT
 
 public:
-	UserWidget(QWidget *parent = nullptr);
 	~UserWidget();
+	static std::shared_ptr<UserWidget> getInstance();
 
 private slots:
 	void on_closeBtn_clicked()
 	{
-		close();
+		hide();
 	}
 
 private:
 	Ui::UserWidgetClass ui;
+	UserWidget(QWidget* parent = nullptr);
 };
