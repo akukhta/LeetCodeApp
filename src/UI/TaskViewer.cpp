@@ -145,6 +145,7 @@ void TaskViewer::getData(std::string const& filePath)
 		ui.testCasesBrowser->setText(QString::fromStdString(testCaseStr));
 	}
 
+	ui.runCodeResultBrowser->clear();
 	wTool->UpdateActiveWindow(this);
 }
 
