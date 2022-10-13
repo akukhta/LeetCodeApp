@@ -5,9 +5,9 @@ LeetCodeDesktop::LeetCodeDesktop(QWidget* parent)
 {
     ui.setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::Window);
-    ui.verticalLayout_4->addWidget(new WindowTool(this, std::bind(WindowTool::closeApp, std::placeholders::_1), this));
+    ui.verticalLayout_4->insertWidget(0, new WindowTool(this, std::bind(WindowTool::closeApp, std::placeholders::_1), this)); 
     auto rmInstance = RequestManager::getInstance();
-    auto qCount = rmInstance->getQuestionsCount();
+    auto qCount = rmInstance->getQuestionsCount(applyFilters());
     qCount.wait();
     auto path = qCount.get();
     auto jTask = JsonManager::getQuestionsCount(path);
@@ -40,7 +40,7 @@ LeetCodeDesktop::~LeetCodeDesktop()
 std::string LeetCodeDesktop::loadPage(size_t pageNum)
 {
     auto rmInstance = RequestManager::getInstance();
-    auto page = rmInstance->getPage(pageNum);
+    auto page = rmInstance->getPage(pageNum, applyFilters());
     page.wait();
     return page.get();
 }
@@ -77,4 +77,17 @@ void LeetCodeDesktop::createProblemWidgets()
     {
         ui.verticalLayout_1->addWidget((*pWidgets)[i]);
     }
+}
+
+std::string LeetCodeDesktop::applyFilters()
+{
+    std::string filters = "{\r\n            ";
+
+    if (ui.comboBox->currentIndex())
+    {
+        filters += "\"difficulty\": \"" + ui.comboBox->currentText().toUpper().toStdString() + "\"\r\n";
+    }
+
+    filters += "        }";
+    return filters;
 }

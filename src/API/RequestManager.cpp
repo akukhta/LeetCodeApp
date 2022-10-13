@@ -161,7 +161,7 @@ std::future<std::string> RequestManager::getAllProblems()
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers);});
 }
 
-std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
+std::future<std::string> RequestManager::getQuestionsCount(std::string const& filters) noexcept(false)
 {
     std::string protocol = "https";
     std::string url = "https://leetcode.com/graphql";
@@ -173,7 +173,7 @@ std::future<std::string> RequestManager::getQuestionsCount() noexcept(false)
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
 
-std::future<std::string> RequestManager::getPage(size_t page) noexcept(false)
+std::future<std::string> RequestManager::getPage(size_t page, std::string const& filters) noexcept(false)
 {
     std::string protocol = "https";
     std::string url = "https://leetcode.com/graphql";
@@ -181,7 +181,9 @@ std::future<std::string> RequestManager::getPage(size_t page) noexcept(false)
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, CookieHandler::getInstance()->generateCookieString().c_str());
-    std::string body = "{\"query\":\"query problemsetQuestionList {\\r\\n  problemsetQuestionList: questionList(\\r\\n    categorySlug: \\\"\\\"\\r\\n    limit:" + std::to_string(questionsPerPage) + "\\r\\n    skip : " + std::to_string((page - 1) * questionsPerPage)+ "\\r\\n    filters : {}\\r\\n  ) {\\r\\n    total : totalNum\\r\\n    questions : data{\\r\\n      acRate\\r\\n      difficulty\\r\\n      freqBar\\r\\n      frontendQuestionId : questionFrontendId\\r\\n      isFavor\\r\\n      paidOnly : isPaidOnly\\r\\n      status\\r\\n      title\\r\\n      titleSlug\\r\\n      topicTags {\\r\\n        name\\r\\n        id\\r\\n        slug\\r\\n}\\r\\n      hasSolution\\r\\n      hasVideoSolution\\r\\n}\\r\\n  }\\r\\n }\\r\\n    \",\"variables\":{}}";
+    
+    std::string body = "{\"query\":\"\\n    query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {\\n  problemsetQuestionList: questionList(\\n    categorySlug: $categorySlug\\n    limit: $limit\\n    skip: $skip\\n    filters: $filters\\n  ) {\\n    total: totalNum\\n    questions: data {\\n      acRate\\n      difficulty\\n      freqBar\\n      frontendQuestionId: questionFrontendId\\n      isFavor\\n      paidOnly: isPaidOnly\\n      status\\n      title\\n      titleSlug\\n      topicTags {\\n        name\\n        id\\n        slug\\n      }\\n      hasSolution\\n      hasVideoSolution\\n    }\\n  }\\n}\\n    \",\"variables\":{\"categorySlug\":\"\",\"skip\":" + std::to_string((page - 1) * questionsPerPage) + ", \"limit\": " + std::to_string(questionsPerPage) + ", \"filters\":" + filters + "}}";
+    
     return std::async(std::launch::async, [this, url, protocol, type, body, headers]() {return executeRequest(url, protocol, type, body, headers); });
 }
 

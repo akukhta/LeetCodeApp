@@ -126,7 +126,58 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4"/>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
+            <property name="text">
+             <string>Difficulty:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;
+background-color: rgb(45, 45, 68);
+border-radius: 15px;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Easy</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Medium</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hard</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QScrollArea" name="scrollArea">
@@ -254,7 +305,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
            <x>0</x>
            <y>0</y>
            <width>806</width>
-           <height>361</height>
+           <height>339</height>
           </rect>
          </property>
          <property name="sizePolicy">

@@ -38,8 +38,8 @@ public:
 	static std::shared_ptr<RequestManager> getInstance();
 	std::future<std::string> getUserInfo() noexcept(false);
 	std::future<std::string> getAllProblems() noexcept(false);
-	std::future<std::string> getQuestionsCount() noexcept(false);
-	std::future<std::string> getPage(size_t page) noexcept(false);
+	std::future<std::string> getQuestionsCount(std::string const &filters = "") noexcept(false);
+	std::future<std::string> getPage(size_t page, std::string const &filters = "") noexcept(false);
 	std::future<std::string> getTasksDescription(std::string taskName) noexcept(false);
 	std::future<std::string> getFile(std::string filePath) noexcept(false);
 	std::future<std::string> getProfileInfo(std::string const &userName) noexcept(false);
