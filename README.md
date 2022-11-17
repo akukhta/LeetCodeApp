@@ -15,4 +15,5 @@ It's written in C++. GUI is based on Qt framework.
 <li> Windows </li>
 <li> Linux </li>
 
-
+This is my previous pet-project. New-gained skills are libcurl (i wish i've chosen boost.beast to do it, lol), https protocol, get/post requests. 
+And also this is my first project on Qt Framework created in Visual Studio by using Qt Tools.
